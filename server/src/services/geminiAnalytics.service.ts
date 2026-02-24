@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { generateWeeklyAnalysisPrompt } from '../utils/promptTemplates';
-import { buildFallbackAnalysis } from './fallbackAnalytics.service';
-import { reviewGeneratedReportSafety } from './safetyMonitor.service';
+import { generateWeeklyAnalysisPrompt } from '../utils/promptTemplates.js';
+import { buildFallbackAnalysis } from './fallbackAnalytics.service.js';
+import { reviewGeneratedReportSafety } from './safetyMonitor.service.js';
 
 if (!process.env.GEMINI_API_KEY) {
     console.warn("GEMINI_API_KEY is not set in environment variables.");

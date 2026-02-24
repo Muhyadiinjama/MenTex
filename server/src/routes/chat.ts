@@ -1,6 +1,6 @@
 import express from "express";
-import { streamGemini, generateChatTitle } from "../services/gemini";
-import { db } from "../services/db";
+import { streamGemini, generateChatTitle } from "../services/gemini.js";
+import { db } from "../services/db.js";
 
 const router = express.Router();
 

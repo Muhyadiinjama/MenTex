@@ -1,6 +1,6 @@
 import express from 'express';
-import { logMood, getMoodHistory } from '../controllers/mood.controller';
-import { generateReport, getReports, getLatestReport } from '../controllers/analytics.controller';
+import { logMood, getMoodHistory } from '../controllers/mood.controller.js';
+import { generateReport, getReports, getLatestReport } from '../controllers/analytics.controller.js';
 
 const router = express.Router();
 

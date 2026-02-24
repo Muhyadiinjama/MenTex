@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Mood } from '../models/Mood';
-import { maybeGenerateAutoReport } from '../services/reportGeneration.service';
+import { Mood } from '../models/Mood.js';
+import { maybeGenerateAutoReport } from '../services/reportGeneration.service.js';
 
 export const logMood = async (req: Request, res: Response) => {
     try {

@@ -1,7 +1,7 @@
 import cron from 'node-cron';
-import { Mood } from '../models/Mood';
-import { WeeklyReport } from '../models/WeeklyReport';
-import { generateWeeklyReportForUser } from '../services/reportGeneration.service';
+import { Mood } from '../models/Mood.js';
+import { WeeklyReport } from '../models/WeeklyReport.js';
+import { generateWeeklyReportForUser } from '../services/reportGeneration.service.js';
 
 // Schedule: Every Sunday at 11:59 PM
 // Cron expression: 59 23 * * 0

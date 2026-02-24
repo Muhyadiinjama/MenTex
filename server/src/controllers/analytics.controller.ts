@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { WeeklyReport } from '../models/WeeklyReport';
-import { generateWeeklyReportForUser } from '../services/reportGeneration.service';
+import { WeeklyReport } from '../models/WeeklyReport.js';
+import { generateWeeklyReportForUser } from '../services/reportGeneration.service.js';
 
 export const generateReport = async (req: Request, res: Response) => {
     try {

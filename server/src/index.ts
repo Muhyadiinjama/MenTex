@@ -2,11 +2,11 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import chatRoute from "./routes/chat";
-import chatsRoute from "./routes/chats";
-import userRoute from "./routes/user";
-import moodRoute from "./routes/mood.routes";
-import { startCronJobs } from "./jobs/weeklyReportCron";
+import chatRoute from "./routes/chat.js";
+import chatsRoute from "./routes/chats.js";
+import userRoute from "./routes/user.js";
+import moodRoute from "./routes/mood.routes.js";
+import { startCronJobs } from "./jobs/weeklyReportCron.js";
 
 const app = express();
 const port = Number(process.env.PORT) || 4000;

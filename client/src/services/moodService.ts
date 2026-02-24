@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:4000/api/mood'; // Adjust if needed
+import { API_URL as BASE_API_URL } from '../config';
+
+const API_URL = `${BASE_API_URL}/api/mood`;
+
+
 
 export const logMood = async (userId: string, emoji: string, moodScore: number, note: string) => {
     const response = await axios.post(`${API_URL}/log`, { userId, emoji, moodScore, note });

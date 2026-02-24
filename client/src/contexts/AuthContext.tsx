@@ -2,7 +2,10 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { User, onAuthStateChanged, signInWithPopup, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, UserCredential, sendPasswordResetEmail, updatePassword as firebaseUpdatePassword } from "firebase/auth";
 import { auth, googleProvider } from "../services/firebase";
 
+import { API_URL } from "../config";
+
 interface UserProfile {
+
     name?: string;
     email?: string;
     gender?: string;
@@ -40,7 +43,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [profile, setProfile] = useState<UserProfile | null>(null);
     const [loading, setLoading] = useState(true);
 
-    const API_URL = "http://localhost:4000";
 
     const refreshProfile = async () => {
         if (auth.currentUser) {

@@ -1,26 +1,27 @@
+
 interface MoodDataItem {
-    date: string | Date;
-    emoji: string;
-    score: number;
-    note?: string;
+  date: string | Date;
+  emoji: string;
+  score: number;
+  note?: string;
 }
 
 export const generateWeeklyAnalysisPrompt = (moodData: MoodDataItem[], analytics?: Record<string, unknown>) => {
-    const recentLogs = moodData
-        .slice(-5)
-        .map((m) => ({
-            timestamp: new Date(m.date).toISOString(),
-            moodScore: m.score,
-            emoji: m.emoji,
-            note: m.note || ''
-        }));
+  const recentLogs = moodData
+    .slice(-5)
+    .map((m) => ({
+      timestamp: new Date(m.date).toISOString(),
+      moodScore: m.score,
+      emoji: m.emoji,
+      note: m.note || ''
+    }));
 
-    const mongoScores = recentLogs.map((log) => log.moodScore);
-    const mongoTriggers = Array.isArray(analytics?.topKeywords) ? analytics?.topKeywords : [];
+  const mongoScores = recentLogs.map((log) => log.moodScore);
+  const mongoTriggers = Array.isArray(analytics?.topKeywords) ? analytics?.topKeywords : [];
 
-    const statsSummary = analytics ? JSON.stringify(analytics, null, 2) : '{}';
+  const statsSummary = analytics ? JSON.stringify(analytics, null, 2) : '{}';
 
-    return `
+  return `
 You are Mentax, a supportive peer for university students.
 Analyze these logs from MongoDB with warm, clear language.
 CRITICAL RULE: Use only simple words. No jargon like "volatility" or "sentiment".

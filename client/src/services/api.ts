@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:4000";
+import { API_URL } from "../config";
+
 
 export interface Chat {
   id: string;

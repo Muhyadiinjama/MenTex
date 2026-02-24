@@ -1,8 +1,8 @@
-import { WeeklyReport } from '../models/WeeklyReport';
-import type { IWeeklyReport } from '../models/WeeklyReport';
-import { Mood } from '../models/Mood';
-import { analyzeWeeklyMood } from './geminiAnalytics.service';
-import { getAggregatedMoodData } from './moodAggregation.service';
+import { WeeklyReport } from '../models/WeeklyReport.js';
+import type { IWeeklyReport } from '../models/WeeklyReport.js';
+import { Mood } from '../models/Mood.js';
+import { analyzeWeeklyMood } from './geminiAnalytics.service.js';
+import { getAggregatedMoodData } from './moodAggregation.service.js';
 
 interface GenerateReportOptions {
   minEntries?: number;

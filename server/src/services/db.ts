@@ -1,5 +1,5 @@
-import { User } from '../models/User';
-import { Chat } from '../models/Chat';
+import { User } from '../models/User.js';
+import { Chat } from '../models/Chat.js';
 
 export interface Message {
     id: string;

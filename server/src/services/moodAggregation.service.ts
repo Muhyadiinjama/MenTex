@@ -1,4 +1,4 @@
-import { Mood } from '../models/Mood';
+import { Mood } from '../models/Mood.js';
 
 const NEGATIVE_KEYWORDS = [
   'sad', 'anxious', 'anxiety', 'stress', 'stressed', 'panic', 'overwhelmed', 'tired',
