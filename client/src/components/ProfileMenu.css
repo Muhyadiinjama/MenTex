@@ -1,0 +1,85 @@
+.profile-menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1099;
+}
+
+.profile-popover-menu {
+    position: absolute;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 8px;
+    animation: menuFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-popover-menu.top-right {
+    top: 50px;
+    right: 0;
+    width: 240px;
+    z-index: 1100;
+}
+
+.profile-popover-menu.bottom-sidebar {
+    bottom: 80px;
+    left: 16px;
+    width: calc(100% - 32px);
+    z-index: 999;
+}
+
+@keyframes menuFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-menu-header {
+    padding: 8px 12px 12px 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    margin-bottom: 8px;
+}
+
+.profile-menu-username {
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 0.9rem;
+}
+
+.profile-menu-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-menu-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 8px;
+    margin-bottom: 2px;
+    transition: background 0.2s ease;
+}
+
+.profile-menu-item:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.profile-menu-item.separate {
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    margin-top: 4px;
+    padding-top: 14px;
+}

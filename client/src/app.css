@@ -1,0 +1,522 @@
+/* 1. Font Face Definition */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Italic.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* Typography */
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  /* 1rem = 16px Base */
+  line-height: 1.6;
+
+  /* MenTex Brand Colors - Premium & Mindful */
+  /* TODO: Update these with your specific Hex Codes */
+  --color-primary: #0F766E;
+  /* Deep Teal - Primary Action */
+  --color-secondary: #334155;
+  /* Slate - Secondary/Dark */
+  --color-tertiary: #99F6E4;
+  /* Soft Teal - Accents */
+  --color-quaternary: #F8FAFC;
+  /* Off White - Backgrounds */
+
+  /* Mappings for existing components */
+  --color-primary-dark: var(--color-secondary);
+  --color-primary-light: var(--color-tertiary);
+  --color-accent: #2DD4BF;
+  /* Teal-400 */
+
+  --color-bg: var(--color-quaternary);
+  --color-bg-gradient: var(--color-bg);
+
+  --color-text: #0f172a;
+  --color-text-sub: #475569;
+  --color-white: #ffffff;
+
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+  --color-alert: #e11d48;
+  /* Rose 600 - High Alert */
+
+  /* Shadows - Layered for Depth */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Hierarchy */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+  font-weight: 700;
+  margin-top: 0;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--color-text-sub);
+}
+
+/* Mobile Typography */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.35rem;
+  }
+}
+
+/* Layout Container */
+.app-container {
+  width: 100%;
+  max-width: 1920px;
+  /* Full HD Cap */
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  height: 100vh;
+  height: 100dvh;
+  /* Dynamic Viewport Height for Mobile */
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  /* Ensure on top */
+  overflow: hidden;
+  /* Hide content when collapsed */
+  white-space: nowrap;
+  /* Prevent text wrapping during transition */
+}
+
+/* Mobile Sidebar (Overlay) */
+@media (max-width: 850px) {
+
+  /* Increased breakpoint for tablets */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 85%;
+    max-width: 320px;
+    transform: translateX(-110%);
+    /* Ensure fully hidden */
+    box-shadow: var(--shadow-xl);
+    background: #fff;
+    /* Solid background on mobile for legibility */
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .mobile-only {
+    display: block;
+    /* Show hamburger */
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+@media (min-width: 851px) {
+  .mobile-only {
+    display: none !important;
+  }
+
+  .desktop-only {
+    display: block;
+    /* or flex/inline depending on usage */
+  }
+
+  .sidebar {
+    transform: none !important;
+    position: relative !important;
+    display: flex !important;
+    box-shadow: none !important;
+    /* No shadow when docked */
+  }
+
+  /* Collapsed State for Desktop */
+  .sidebar:not(.open) {
+    width: 0;
+    padding: 0;
+    border-right: none;
+    opacity: 0;
+  }
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1;
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.4);
+  min-width: 0;
+  /* Critical for Flexbox text shrinking */
+}
+
+/* Professional Input Fields */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 14px 16px;
+  /* Roomy padding */
+  font-size: 1rem;
+  font-family: inherit;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-text);
+  transition: all 0.2s ease;
+  outline: none;
+  box-shadow: var(--shadow-sm);
+  appearance: none;
+  /* Reset native styles */
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(94, 129, 172, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Professional Buttons */
+button {
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+  padding: 14px 28px;
+  border-radius: var(--radius-full);
+  /* Pill shape */
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: var(--shadow-md);
+  letter-spacing: 0.01em;
+  min-height: 48px;
+  /* Touch target */
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-alert {
+  background: var(--color-alert);
+  color: white;
+  padding: 14px 28px;
+  border-radius: var(--radius-full);
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+}
+
+.btn-alert:hover {
+  background: #be123c;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(225, 29, 72, 0.4);
+}
+
+.btn-secondary {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  border: 1px solid #e2e8f0;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+.btn-google {
+  width: 100%;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  background: white;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-google:hover {
+  background: #f8fafc;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+/* Card Component */
+.card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* Utilities */
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.full-h {
+  height: 100vh;
+}
+
+.full-w {
+  width: 100%;
+}
+
+.display-none {
+  display: none !important;
+}
+
+.flex-row-gap-10 {
+  display: flex;
+  gap: 10px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Markdown Content Styling */
+.markdown-content {
+  line-height: 1.7;
+  /* Readable prose */
+}
+
+.markdown-content p {
+  margin-bottom: 1em;
+}
+
+.markdown-content h1,
+.markdown-content h2 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.markdown-content ul {
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+.markdown-content li {
+  margin-bottom: 0.4em;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Spinner */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes crisisBreath {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.28);
+  }
+
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 8px 18px rgba(225, 29, 72, 0.38);
+  }
+}
+
+.crisis-pulse-btn {
+  animation: crisisBreath 2.4s ease-in-out infinite;
+}

@@ -1,0 +1,308 @@
+.profile-scroll-area {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 8px auto 40px;
+}
+
+.profile-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.change-password-trigger {
+    width: fit-content;
+}
+
+.back-button {
+    background: white;
+    border: 1px solid rgba(15, 118, 110, 0.15);
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--color-text);
+}
+
+.back-button:hover {
+    background: var(--color-quaternary);
+    border-color: var(--color-primary);
+}
+
+.profile-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-text);
+}
+
+/* User Header Section */
+.profile-user-header {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid rgba(15, 118, 110, 0.1);
+}
+
+.user-info-section {
+    flex: 1;
+}
+
+.name-display-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+}
+
+.profile-name-h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.edit-name-btn {
+    background: rgba(15, 118, 110, 0.07);
+    border: none;
+    padding: 6px;
+    border-radius: 6px;
+    color: var(--color-text-sub);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+}
+
+.edit-name-btn:hover {
+    background: rgba(15, 118, 110, 0.12);
+    color: var(--color-primary);
+}
+
+.profile-email {
+    color: var(--color-text-sub);
+    font-size: 0.9375rem;
+}
+
+/* Editing Name */
+.name-edit-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.name-input {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    padding: 8px 12px !important;
+}
+
+.action-buttons-flex {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.save-name-btn,
+.cancel-name-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.save-name-btn {
+    background: var(--color-primary);
+    color: white;
+}
+
+.cancel-name-btn {
+    background: var(--color-quaternary);
+    color: var(--color-text-sub);
+}
+
+/* Sections */
+.profile-sections-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.details-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    color: var(--color-text-sub);
+}
+
+.detail-value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+/* Password Form */
+.password-form {
+    background: var(--color-quaternary);
+    padding: 24px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(15, 118, 110, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.detail-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-sub);
+}
+
+.profile-lang-btn {
+    width: fit-content;
+    margin-top: 10px;
+}
+
+.lang-switch-btn {
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(15, 118, 110, 0.15);
+    background: white;
+    color: var(--color-primary);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.lang-switch-btn:hover {
+    background: var(--color-quaternary);
+    border-color: var(--color-primary);
+}
+
+.lang-switch-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 850px) {
+    .profile-sections-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .profile-user-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .name-display-container,
+    .name-edit-container {
+        justify-content: center;
+    }
+
+    .profile-container {
+        margin: 20px auto;
+    }
+}
+
+.settings-pref-header {
+    margin-bottom: 8px;
+}
+
+.settings-pref-desc {
+    color: var(--color-text-sub);
+    margin-bottom: 24px;
+}
+
+.settings-lang-card {
+    background: rgba(0, 0, 0, 0.02);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.settings-lang-info {
+    flex: 1;
+}
+
+.settings-lang-label {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.settings-lang-current {
+    font-size: 0.85rem;
+    color: var(--color-text-sub);
+}
+
+.settings-pref-title {
+    margin: 0;
+}
+
+.settings-section-no-border {
+    border: none;
+    padding: 0;
+}

@@ -1,0 +1,67 @@
+.user-nav-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.user-nav-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #e2e8f0;
+    background: white;
+    box-shadow: var(--shadow-sm);
+    width: 40px;
+    height: 40px;
+}
+
+.user-nav-trigger:hover,
+.user-nav-trigger.active {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    box-shadow: var(--shadow-md);
+}
+
+.user-nav-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    border: 1.5px solid white;
+}
+
+.user-nav-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-nav-login {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: var(--radius-full);
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: var(--shadow-sm);
+}
+
+.user-nav-login:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}

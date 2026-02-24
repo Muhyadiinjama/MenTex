@@ -1,0 +1,216 @@
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    flex: 1;
+    padding: 28px;
+}
+
+.landing-loading-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.landing-bg-decor {
+    position: absolute;
+    top: -18%;
+    left: -10%;
+    width: min(42vw, 520px);
+    height: min(42vw, 520px);
+    background: rgba(15, 118, 110, 0.1);
+    border-radius: 50%;
+    filter: blur(8px);
+    z-index: -1;
+    animation: floatOrb 9s ease-in-out infinite;
+}
+
+.landing-bg-decor-2 {
+    top: auto;
+    left: auto;
+    right: -12%;
+    bottom: -22%;
+    background: rgba(14, 165, 233, 0.1);
+    animation-delay: 2.4s;
+}
+
+.landing-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image: none;
+    background-size: 32px 32px;
+    -webkit-mask-image: none;
+    mask-image: none;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.lang-switch-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.lang-switch-btn {
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    background: rgba(255, 255, 255, 0.75);
+    color: var(--color-primary);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lang-switch-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.landing-hero {
+    width: min(840px, 100%);
+    padding: clamp(28px, 4vw, 48px);
+}
+
+.landing-reveal-1,
+.landing-reveal-2,
+.landing-reveal-3,
+.landing-reveal-4 {
+    opacity: 0;
+    animation: revealUp 0.65s ease forwards;
+}
+
+.landing-reveal-2 {
+    animation-delay: 0.08s;
+}
+
+.landing-reveal-3 {
+    animation-delay: 0.16s;
+}
+
+.landing-reveal-4 {
+    animation-delay: 0.24s;
+}
+
+.landing-logo-container {
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-main-logo {
+    max-width: clamp(220px, 30vw, 320px);
+    height: auto;
+    filter: drop-shadow(0 8px 24px rgba(15, 118, 110, 0.2));
+}
+
+.landing-h1 {
+    font-size: clamp(2.1rem, 4.8vw, 3.3rem);
+    margin-bottom: 14px;
+    color: var(--color-text);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.landing-p {
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    color: var(--color-text-sub);
+    margin: 0 auto 40px;
+    line-height: 1.5;
+    max-width: 68ch;
+}
+
+.landing-cta {
+    min-width: 210px;
+    font-size: 1.03rem;
+    box-shadow: 0 14px 24px rgba(15, 118, 110, 0.24);
+}
+
+.landing-footer {
+    position: absolute;
+    bottom: 30px;
+    opacity: 0.65;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+}
+
+@keyframes revealUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatOrb {
+
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate3d(0, -16px, 0) scale(1.03);
+    }
+}
+
+@media (max-width: 768px) {
+    .landing-container {
+        padding: 18px;
+    }
+
+    .lang-switch-container {
+        right: 14px;
+        top: 14px;
+    }
+
+    .lang-switch-btn {
+        padding: 8px 14px;
+    }
+
+    .landing-hero {
+        padding: 22px 18px 28px;
+    }
+
+    .landing-p {
+        margin-bottom: 30px;
+    }
+
+    .landing-footer {
+        bottom: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .landing-bg-decor,
+    .landing-reveal-1,
+    .landing-reveal-2,
+    .landing-reveal-3,
+    .landing-reveal-4 {
+        animation: none !important;
+        opacity: 1;
+    }
+}
