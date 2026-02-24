@@ -27,6 +27,11 @@ app.use("/api/mood", moodRoute);
 // Start Cron Jobs
 startCronJobs();
 
+app.get("/", (_req, res) => {
+  res.send("MenTex API is running. Use /health for status.");
+});
+
+// Health check
 app.get("/health", (_req, res) => {
   res.json({ ok: true });
 });
