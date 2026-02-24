@@ -64,23 +64,30 @@ const MoodCheckIn: React.FC<MoodCheckInProps> = ({ lang }) => {
                 : currentNote;
 
             await logMood(currentUser.uid, emoji, moodScore, finalNote);
-
-            // Redirect
-            navigate('/dashboard');
         } catch (error) {
             console.error("Failed to log mood", error);
             alert(t.saveError);
         }
     };
 
-    const handleMoodSelect = (moodId: string) => {
+    const handleMoodSelect = async (moodId: string) => {
         setSelectedMood(moodId);
+        const mood = moods.find(m => m.id === moodId);
+        if (!mood) return;
+
         if (negativeMoods.includes(moodId)) {
-            // Negative mood: Ask context and note
+            // Challenging mood: Ask for context (factors/notes) first
             setTimeout(() => setStep(2), 300);
         } else {
-            // Positive mood: Save immediately
-            saveEntry(moodId, [], '');
+            // Positive mood: Save immediately and go directly to chat
+            await saveEntry(moodId, [], '');
+            navigate('/chat', {
+                state: {
+                    initialMood: mood.label,
+                    moodEmoji: mood.emoji,
+                    fromCheckIn: true
+                }
+            });
         }
     };
 
@@ -92,9 +99,22 @@ const MoodCheckIn: React.FC<MoodCheckInProps> = ({ lang }) => {
         );
     };
 
-    const handleFinish = () => {
+    const handleFinish = async () => {
         if (!selectedMood) return;
-        saveEntry(selectedMood, factors, note);
+        const mood = moods.find(m => m.id === selectedMood);
+        if (!mood) return;
+
+        await saveEntry(selectedMood, factors, note);
+
+        // Go to chat with full context (mood + note)
+        navigate('/chat', {
+            state: {
+                initialMood: mood.label,
+                moodEmoji: mood.emoji,
+                moodNote: note,
+                fromCheckIn: true
+            }
+        });
     };
 
     return (

@@ -97,7 +97,7 @@ const Landing: React.FC<LandingProps> = ({ lang, setLang }) => {
 
             {/* Footer text */}
             <div className="landing-footer">
-                MenTex v1.0.0
+                MenTex v1.0.1
             </div>
         </div>
     );

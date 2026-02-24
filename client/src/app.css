@@ -227,12 +227,15 @@ p {
   position: relative;
   height: 100vh;
   height: 100dvh;
+  /* Use dynamic viewport height for mobile browsers */
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, 0.4);
   min-width: 0;
-  /* Critical for Flexbox text shrinking */
+  /* Support for iOS safe area (notches) */
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* Professional Input Fields */

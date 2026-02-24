@@ -62,13 +62,30 @@ const ChatWithAI: React.FC<ChatWithAIProps> = ({ lang, setSafetyOpen, safetyOpen
         }
     }, [currentUser, authLoading]);
 
-    // Handle initial message from dashboard
+    // Handle initial message from dashboard or mood check-in
     useEffect(() => {
-        if (location.state?.initialMessage && userId && !isLoading) {
+        if (authLoading || !userId) return;
+
+        if (location.state?.initialMood && !isLoading) {
+            let moodText = lang === 'EN'
+                ? `I'm feeling ${location.state.initialMood} ${location.state.moodEmoji || ''}`
+                : `Saya rasa ${location.state.initialMood} ${location.state.moodEmoji || ''}`;
+
+            // If the user added a note, include it for the AI
+            if (location.state.moodNote) {
+                moodText += lang === 'EN'
+                    ? `. Specifically: ${location.state.moodNote}`
+                    : `. Khususnya: ${location.state.moodNote}`;
+            }
+
+            handleSend(moodText);
+            // Clear state so it doesn't re-trigger
+            window.history.replaceState({}, document.title);
+        } else if (location.state?.initialMessage && !isLoading) {
             handleSend(location.state.initialMessage);
             window.history.replaceState({}, document.title);
         }
-    }, [location.state, userId]);
+    }, [location.state, userId, authLoading]);
 
     // Load Chat History
     useEffect(() => {

@@ -1,7 +1,7 @@
 /* Navbar / Header Bar Styles */
 
 .dashboard-header-bar {
-    padding: 20px;
+    padding: 16px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -10,8 +10,10 @@
     backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 100;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    /* Support for safe areas at the top */
+    padding-top: calc(16px + env(safe-area-inset-top));
 }
 
 .dashboard-header-left {
@@ -112,6 +114,19 @@
 }
 
 @media (max-width: 850px) {
+    .dashboard-header-bar {
+        padding: 10px 14px;
+        padding-top: calc(10px + env(safe-area-inset-top));
+    }
+
+    .dashboard-header-left {
+        gap: 12px;
+    }
+
+    .dashboard-title-h2 {
+        font-size: 1.15rem;
+    }
+
     .desktop-only {
         display: none;
     }
@@ -122,6 +137,7 @@
 
     .nav-feedback-btn {
         width: 36px;
+        height: 36px;
         padding: 0;
         justify-content: center;
     }

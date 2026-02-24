@@ -1,7 +1,7 @@
 .profile-scroll-area {
     flex: 1;
     padding: 24px;
-    overflow-y: auto;
+    /* overflow-y: auto removed to allow main-content to handle scrolling and sticky Navbar */
 }
 
 .profile-container {
@@ -71,6 +71,7 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
+    letter-spacing: -0.01em;
 }
 
 .edit-name-btn {
@@ -243,8 +244,48 @@
 }
 
 @media (max-width: 850px) {
+    .profile-scroll-area {
+        padding: 16px 12px 24px;
+    }
+
+    .profile-container {
+        margin: 10px auto 30px;
+    }
+
+    .profile-name-h2 {
+        font-size: 1.25rem;
+    }
+
+    .card {
+        padding: 24px 16px;
+    }
+
     .profile-sections-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .settings-pref-desc {
+        font-size: 0.9rem;
+        margin-bottom: 18px;
+    }
+
+    .settings-lang-label {
+        font-size: 0.95rem;
+    }
+
+    .settings-lang-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 14px;
+    }
+
+    .lang-switch-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 8px 16px;
+        font-size: 0.85rem;
     }
 }
 
@@ -258,10 +299,6 @@
     .name-display-container,
     .name-edit-container {
         justify-content: center;
-    }
-
-    .profile-container {
-        margin: 20px auto;
     }
 }
 
