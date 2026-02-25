@@ -135,3 +135,17 @@ export async function streamChat(
     throw new Error("No response text received from AI.");
   }
 }
+
+export async function sendContactMessage(formData: FormData) {
+  const res = await fetch(`${API_URL}/contact`, {
+    method: "POST",
+    body: formData
+    // Note: Don't set Content-Type header when using FormData; 
+    // the browser will set it with the correct boundary automatically.
+  });
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.details || "Failed to send message");
+  }
+  return res.json();
+}

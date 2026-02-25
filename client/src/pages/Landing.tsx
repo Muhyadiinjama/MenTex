@@ -95,10 +95,6 @@ const Landing: React.FC<LandingProps> = ({ lang, setLang }) => {
                 </button>
             </section>
 
-            {/* Footer text */}
-            <div className="landing-footer">
-                MenTex v1.0.1
-            </div>
         </div>
     );
 };

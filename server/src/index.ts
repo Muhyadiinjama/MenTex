@@ -6,6 +6,7 @@ import chatRoute from "./routes/chat.js";
 import chatsRoute from "./routes/chats.js";
 import userRoute from "./routes/user.js";
 import moodRoute from "./routes/mood.routes.js";
+import contactRoute from "./routes/contact.js";
 import { startCronJobs } from "./jobs/weeklyReportCron.js";
 
 const app = express();
@@ -23,6 +24,7 @@ app.use("/chat", chatRoute);
 app.use("/chats", chatsRoute);
 app.use("/user", userRoute);
 app.use("/api/mood", moodRoute);
+app.use("/contact", contactRoute);
 
 // Start Cron Jobs
 startCronJobs();

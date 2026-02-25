@@ -18,6 +18,9 @@ import { Toaster } from 'react-hot-toast';
 import MoodTrackerPage from './pages/MoodTrackerPage';
 import MoodHistoryPage from './pages/MoodHistoryPage';
 import WeeklyReportPage from './pages/WeeklyReportPage';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Feedback from './pages/Feedback';
 
 function AppContent() {
   const { profile } = useAuth();
@@ -103,6 +106,30 @@ function AppContent() {
           element={
             <PrivateRoute>
               <WeeklyReportPage lang={lang} />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <PrivateRoute>
+              <About lang={lang} />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <PrivateRoute>
+              <Contact lang={lang} />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/feedback"
+          element={
+            <PrivateRoute>
+              <Feedback lang={lang} />
             </PrivateRoute>
           }
         />

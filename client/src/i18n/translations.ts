@@ -47,9 +47,59 @@ export const translations = {
         profileMenu: {
             myProfile: "My Profile",
             settings: "Settings",
+            about: "About",
+            contact: "Contact Us",
             help: "Help",
             logout: "Log out",
             helpSoon: "Help center coming soon!"
+        },
+        contact: {
+            title: "Contact Us",
+            subtitle: "Have questions? We'd love to hear from you.",
+            name: "Full Name",
+            email: "Email Address",
+            subject: "Subject",
+            message: "Your Message",
+            send: "Send Message",
+            sending: "Sending...",
+            success: "Message sent! We'll get back to you soon.",
+            error: "Failed to send message. Please try again.",
+            directEmail: "Direct Support",
+            formTitle: "Send us a message",
+            uploadScreenshot: "Attach Screenshot",
+            screenshotSubtitle: "Upload a JPG/PNG of the issue (optional)",
+            screenshotSelected: "Screenshot selected",
+            remove: "Remove",
+            subjects: {
+                report: "Report a Problem",
+                feedback: "Send Feedback",
+                improvement: "Ask for Improvement",
+                others: "Others",
+                custom: "Custom Subject"
+            }
+        },
+        feedback: {
+            title: "Feedback",
+            subtitle: "We value your thoughts on how we can improve MenTex.",
+            formTitle: "Share Your Feedback",
+            placeholder: "Tell us what you think...",
+            success: "Thank you for your Feedback! We will see and improve MenTex based on your thoughts.",
+            error: "Failed to send feedback. Please try again."
+        },
+        about: {
+            title: "About MenTex",
+            logoAlt: "MenTex Logo",
+            description: "MenTex is your mindful AI companion, designed to support emotional wellness through daily check-ins, data-driven mood tracking, and empathetic conversations.",
+            version: "Version 1.1.0",
+            subtitle: "Mental Health Support",
+            mission: "Our Mission",
+            missionText: "To provide an accessible, safe, and stigma-free digital space where individuals can understand their emotional patterns and find support whenever they need it.",
+            features: [
+                "AI-Powered Conversations",
+                "Personalized Mood Analytics",
+                "Secure and Private Check-ins",
+                "Mental Health Resources"
+            ]
         },
         landing: {
             heroTitle: "Your Mental Wellness, Supported by AI.",
@@ -321,9 +371,59 @@ export const translations = {
         profileMenu: {
             myProfile: "Profil Saya",
             settings: "Tetapan",
+            about: "Mengenai",
+            contact: "Hubungi Kami",
             help: "Bantuan",
             logout: "Log Keluar",
             helpSoon: "Pusat bantuan akan datang!"
+        },
+        contact: {
+            title: "Hubungi Kami",
+            subtitle: "Ada soalan? Kami sedia mendengar daripada anda.",
+            name: "Nama Penuh",
+            email: "Alamat Emel",
+            subject: "Subjek",
+            message: "Mesej Anda",
+            send: "Hantar Mesej",
+            sending: "Menghantar...",
+            success: "Mesej dihantar! Kami akan hubungi anda segera.",
+            error: "Gagal menghantar mesej. Sila cuba lagi.",
+            directEmail: "Sokongan Terus",
+            formTitle: "Hantarkan mesej kepada kami",
+            uploadScreenshot: "Lampirkan Tangkapan Skrin",
+            screenshotSubtitle: "Muat naik JPG/PNG masalah (pilihan)",
+            screenshotSelected: "Tangkapan skrin dipilih",
+            remove: "Padam",
+            subjects: {
+                report: "Laporkan Masalah",
+                feedback: "Hantar Maklum Balas",
+                improvement: "Cadangkan Penambahbaikan",
+                others: "Lain-lain",
+                custom: "Subjek Sendiri"
+            }
+        },
+        feedback: {
+            title: "Maklum Balas",
+            subtitle: "Kami menghargai pendapat anda tentang cara kami boleh menambah baik MenTex.",
+            formTitle: "Kongsi Maklum Balas Anda",
+            placeholder: "Beritahu kami apa yang anda fikirkan...",
+            success: "Terima kasih atas Maklum Balas anda! Kami akan melihat dan menambah baik MenTex berdasarkan pendapat anda.",
+            error: "Gagal menghantar maklum balas. Sila cuba lagi."
+        },
+        about: {
+            title: "Mengenai MenTex",
+            logoAlt: "Logo MenTex",
+            description: "MenTex adalah teman AI anda, direka untuk menyokong kesejahteraan emosi melalui daftar masuk harian, penjejakan mood berasaskan data, dan perbualan yang empati.",
+            version: "Versi 1.1.0",
+            subtitle: "Sokongan Kesihatan Mental",
+            mission: "Misi Kami",
+            missionText: "Untuk menyediakan ruang digital yang boleh diakses, selamat, dan bebas stigma di mana individu boleh memahami corak emosi mereka dan mencari sokongan bila-bila masa diperlukan.",
+            features: [
+                "Perbualan Dikuasakan AI",
+                "Analitik Mood Peribadi",
+                "Daftar Masuk Selamat & Peribadi",
+                "Sumber Kesihatan Mental"
+            ]
         },
         landing: {
             heroTitle: "Kesejahteraan Mental Anda, Disokong oleh AI.",
