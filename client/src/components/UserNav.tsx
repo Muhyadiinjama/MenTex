@@ -32,7 +32,11 @@ const UserNav: React.FC<UserNavProps> = ({ lang }) => {
             >
                 <div className="user-nav-avatar">
                     {profile?.photoURL || currentUser.photoURL ? (
-                        <img src={profile?.photoURL || currentUser.photoURL || ''} alt="User" />
+                        <img
+                            src={profile?.photoURL || currentUser.photoURL || ''}
+                            alt="User"
+                            referrerPolicy="no-referrer"
+                        />
                     ) : (
                         <User size={20} />
                     )}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, Chrome, CheckCircle, User, Calendar, Smile, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Mail, Lock, Chrome, CheckCircle, User, Calendar, Smile, ArrowRight } from 'lucide-react';
 import { auth } from '../services/firebase';
 import { updateUserProfile } from '../services/api';
 import { updateProfile } from 'firebase/auth';
@@ -38,7 +38,7 @@ const Login: React.FC<LoginProps> = ({ lang }) => {
 
     // UI State
     const [loading, setLoading] = useState(false);
-    const { loginWithEmail, signupWithEmail, signInWithGoogle, sendVerification, resetPassword } = useAuth();
+    const { loginWithEmail, signupWithEmail, signInWithGoogle, sendVerification, resetPassword, refreshProfile } = useAuth();
     const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -128,6 +128,7 @@ const Login: React.FC<LoginProps> = ({ lang }) => {
             await sendVerification();
 
             toast.success(t.accountCreated, { id: toastId });
+            setLoading(false);
             setSignupStep(4); // Show verification screen
 
         } catch (err) {
@@ -153,10 +154,44 @@ const Login: React.FC<LoginProps> = ({ lang }) => {
         const toastId = toast.loading(t.google);
         try {
             await signInWithGoogle();
+
+            const user = auth.currentUser;
+            if (user) {
+                console.log("Syncing Google User:", { name: user.displayName, email: user.email, photo: user.photoURL });
+
+                // Sync profile data to DB immediately
+                await updateUserProfile(user.uid, {
+                    name: user.displayName || '',
+                    email: user.email || '',
+                    photoURL: user.photoURL || undefined
+                });
+
+                await refreshProfile();
+
+                toast.success(t.welcomeMsg, { id: toastId });
+                navigate('/check-in');
+                return;
+            }
+
             toast.success(t.welcomeMsg, { id: toastId });
             navigate('/check-in');
-        } catch (e) {
-            toast.error(t.googleFailed, { id: toastId });
+        } catch (e: any) {
+            console.error("Google sign in error:", e);
+
+            let errorMessage = t.googleFailed;
+            if (e.code === 'auth/popup-closed-by-user') {
+                errorMessage = "Login cancelled (popup closed).";
+            } else if (e.code === 'auth/unauthorized-domain') {
+                errorMessage = "Login Failed: Domain not authorized. Please add 'localhost' to Authorized Domains in Firebase Console.";
+            } else if (e.code === 'auth/operation-not-allowed') {
+                errorMessage = "Login Failed: Google Sign-In is not enabled in Firebase.";
+            } else if (e.message?.includes('Failed to fetch')) {
+                errorMessage = "Sync Failed: Could not connect to the backend server. Check your connection or VITE_API_URL.";
+            } else if (e.message) {
+                errorMessage = `${t.googleFailed}: ${e.message}`;
+            }
+
+            toast.error(errorMessage, { id: toastId });
         }
     };
 
@@ -202,11 +237,11 @@ const Login: React.FC<LoginProps> = ({ lang }) => {
                         {t.verifySent(formData.email)}<br />
                         {t.verifyCheck}
                     </p>
-                    <div className="verification-actions">
-                        <button onClick={() => { setIsLogin(true); setSignupStep(1); }} className="btn-primary">
+                    <div className="flex-row-gap-10">
+                        <button onClick={() => { setIsLogin(true); setSignupStep(1); setLoading(false); }} className="btn-primary">
                             {t.goToLogin}
                         </button>
-                        <button onClick={handleResendVerification} className="verification-resend-btn">
+                        <button onClick={handleResendVerification} className="btn-secondary">
                             {t.resend}
                         </button>
                     </div>
@@ -280,8 +315,8 @@ const Login: React.FC<LoginProps> = ({ lang }) => {
                             <Lock size={18} color="#999" />
                             <input type="password" name="password" placeholder={`${t.password} (6+ chars)`} value={formData.password} onChange={handleChange} required minLength={6} />
                         </div>
-                        <button type="submit" className="btn-primary" title={t.nextProfile}>
-                            {t.nextProfile} <ArrowRight size={18} />
+                        <button type="submit" className="btn-primary" title={common.next}>
+                            {common.next} <ArrowRight size={18} />
                         </button>
                     </form>
                 )}
@@ -295,8 +330,12 @@ const Login: React.FC<LoginProps> = ({ lang }) => {
                             <input type="text" name="fullName" placeholder={t.fullName} value={formData.fullName} onChange={handleChange} required autoFocus />
                         </div>
                         <div className="flex-row-gap-10">
-                            <button type="button" onClick={handlePrevStep} className="btn-secondary" title={common.back} aria-label={common.back}><ArrowLeft size={18} /></button>
-                            <button type="submit" className="btn-primary" title={t.nextDetails}>{t.nextDetails} <ArrowRight size={18} /></button>
+                            <button type="button" onClick={handlePrevStep} className="btn-secondary" title={common.previous}>
+                                {common.previous}
+                            </button>
+                            <button type="submit" className="btn-primary" title={common.next}>
+                                {common.next}
+                            </button>
                         </div>
                     </form>
                 )}
@@ -320,9 +359,11 @@ const Login: React.FC<LoginProps> = ({ lang }) => {
                             </select>
                         </div>
                         <div className="flex-row-gap-10">
-                            <button type="button" onClick={handlePrevStep} className="btn-secondary" title={common.back} aria-label={common.back}><ArrowLeft size={18} /></button>
-                            <button type="submit" disabled={loading} className="btn-primary" title={loading ? t.creating : t.createAccount}>
-                                {loading ? t.creating : t.createAccount}
+                            <button type="button" onClick={handlePrevStep} className="btn-secondary" title={common.previous}>
+                                {common.previous}
+                            </button>
+                            <button type="submit" disabled={loading} className="btn-primary" title={t.signUp}>
+                                {loading ? t.creating : t.signUp}
                             </button>
                         </div>
                     </form>

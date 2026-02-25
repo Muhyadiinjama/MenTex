@@ -228,14 +228,23 @@ p {
   height: 100vh;
   height: 100dvh;
   /* Use dynamic viewport height for mobile browsers */
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
+  /* Hidden so children manage their own scrolls */
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, 0.4);
   min-width: 0;
   /* Support for iOS safe area (notches) */
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Utility for page wrappers that should scroll while Navbar stays fixed */
+.page-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Professional Input Fields */

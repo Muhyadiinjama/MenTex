@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Edit2, Check, X, Shield, User } from 'lucide-react';
+import { Edit2, Check, X, Shield, User, Calendar, Smile } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import Sidebar from '../components/Sidebar';
@@ -25,15 +25,24 @@ const Profile: React.FC<ProfileProps> = ({ lang }) => {
     const [editedName, setEditedName] = useState('');
     const [isChangingPassword, setIsChangingPassword] = useState(false);
     const [passwords, setPasswords] = useState({ new: '', confirm: '' });
+    const [details, setDetails] = useState({
+        gender: '',
+        dateOfBirth: ''
+    });
     const [loading, setLoading] = useState(false);
 
     const t = translations[lang].profile;
+    const loginT = translations[lang].login;
     const common = translations[lang].common;
 
-    // Synchronize editedName with profile name
+    // Synchronize editedName and details with profile
     useEffect(() => {
-        if (profile?.name || currentUser?.displayName) {
-            setEditedName(profile?.name || currentUser?.displayName || '');
+        if (profile) {
+            setEditedName(profile.name || currentUser?.displayName || '');
+            setDetails({
+                gender: profile.gender || '',
+                dateOfBirth: profile.dateOfBirth || ''
+            });
         }
     }, [profile, currentUser]);
 
@@ -55,7 +64,24 @@ const Profile: React.FC<ProfileProps> = ({ lang }) => {
     };
 
 
-
+    const handleSaveDetails = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!currentUser) return;
+        setLoading(true);
+        try {
+            await updateUserProfile(currentUser.uid, {
+                gender: details.gender,
+                dateOfBirth: details.dateOfBirth
+            });
+            await refreshProfile();
+            toast.success(t.profileUpdated);
+        } catch (error) {
+            console.error(error);
+            toast.error(t.profileUpdateError);
+        } finally {
+            setLoading(false);
+        }
+    };
     const handlePasswordChange = async (e: React.FormEvent) => {
         e.preventDefault();
         if (passwords.new !== passwords.confirm) {
@@ -175,6 +201,49 @@ const Profile: React.FC<ProfileProps> = ({ lang }) => {
                                     </div>
                                 </section>
 
+                                <section className="profile-section">
+                                    <div className="section-header">
+                                        <Smile size={20} color="var(--color-primary)" />
+                                        <h3 className="section-title">{t.personalizedDetails}</h3>
+                                    </div>
+                                    <form onSubmit={handleSaveDetails} className="details-form">
+                                        <div className="input-group-vertical">
+                                            <label className="detail-label">{t.gender}</label>
+                                            <div className="input-with-icon">
+                                                <Smile size={18} className="field-icon" />
+                                                <select
+                                                    value={details.gender}
+                                                    onChange={(e) => setDetails({ ...details, gender: e.target.value })}
+                                                    required
+                                                    className="profile-select"
+                                                    title={t.gender}
+                                                >
+                                                    <option value="" disabled>{t.selectGender}</option>
+                                                    <option value="Male">{loginT.male}</option>
+                                                    <option value="Female">{loginT.female}</option>
+                                                    <option value="Non-binary">{loginT.nonBinary}</option>
+                                                    <option value="Prefer not to say">{loginT.preferNotToSay}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="input-group-vertical">
+                                            <label className="detail-label">{t.dob}</label>
+                                            <div className="input-with-icon">
+                                                <Calendar size={18} className="field-icon" />
+                                                <input
+                                                    type="date"
+                                                    value={details.dateOfBirth}
+                                                    onChange={(e) => setDetails({ ...details, dateOfBirth: e.target.value })}
+                                                    required
+                                                    title={t.dob}
+                                                />
+                                            </div>
+                                        </div>
+                                        <button type="submit" disabled={loading} className="btn-primary update-details-btn">
+                                            {t.updateProfile}
+                                        </button>
+                                    </form>
+                                </section>
 
 
                                 <section className="profile-section">

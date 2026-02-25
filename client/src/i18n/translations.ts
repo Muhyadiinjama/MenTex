@@ -9,6 +9,7 @@ export const translations = {
             user: "User",
             email: "Email Address",
             next: "Next",
+            previous: "Previous",
             back: "Back",
             finish: "Finish",
             success: "Success",
@@ -119,7 +120,14 @@ export const translations = {
             updatingPass: "Updating password...",
             reauthRequired: "For security, please log out and log in again to change your password.",
             placeholderPass: "Enter new password",
-            placeholderConfirm: "Confirm new password"
+            placeholderConfirm: "Confirm new password",
+            personalizedDetails: "Personalized Details",
+            gender: "Gender",
+            dob: "Date of Birth",
+            updateProfile: "Update Profile",
+            profileUpdated: "Profile updated successfully",
+            profileUpdateError: "Failed to update profile",
+            selectGender: "Select Gender"
         },
         login: {
             welcome: "Welcome Back",
@@ -166,7 +174,8 @@ export const translations = {
             resendFailed: "Failed to resend. Try logging in again.",
             resetSent: "Password reset link sent! Check your inbox.",
             resetFailed: "Failed to send reset link. Make sure the email is correct.",
-            accountCreated: "Account created! Please verify email."
+            accountCreated: "Account created! Please verify email.",
+            completeProfileNotice: "Welcome! Please finish setting up your profile below."
         },
         settings: {
             title: "Settings",
@@ -274,6 +283,7 @@ export const translations = {
             user: "Pengguna",
             email: "Alamat Emel",
             next: "Seterusnya",
+            previous: "Kembali",
             back: "Kembali",
             finish: "Selesai",
             success: "Berjaya",
@@ -384,7 +394,14 @@ export const translations = {
             updatingPass: "Mengemaskini kata laluan...",
             reauthRequired: "Untuk keselamatan, sila log keluar dan log masuk semula untuk menukar kata laluan anda.",
             placeholderPass: "Masukkan kata laluan baru",
-            placeholderConfirm: "Sahkan kata laluan baru"
+            placeholderConfirm: "Sahkan kata laluan baru",
+            personalizedDetails: "Butiran Peribadi",
+            gender: "Jantina",
+            dob: "Tarikh Lahir",
+            updateProfile: "Kemaskini Profil",
+            profileUpdated: "Profil berjaya dikemaskini",
+            profileUpdateError: "Gagal mengemaskini profil",
+            selectGender: "Pilih Jantina"
         },
         settings: {
             title: "Tetapan",
@@ -526,7 +543,8 @@ export const translations = {
             resendFailed: "Gagal hantar semula. Cuba log masuk semula.",
             resetSent: "Pautan tetapan semula dihantar! Semak peti masuk.",
             resetFailed: "Gagal hantar pautan. Pastikan emel adalah betul.",
-            accountCreated: "Akaun dicipta! Sila sahkan emel."
+            accountCreated: "Akaun dicipta! Sila sahkan emel.",
+            completeProfileNotice: "Selamat datang! Sila lengkapkan persediaan profil anda di bawah."
         }
     }
 };

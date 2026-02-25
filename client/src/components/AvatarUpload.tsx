@@ -17,6 +17,13 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({ currentPhotoURL, onUploadSu
     const [preview, setPreview] = useState<string | null>(currentPhotoURL || null);
     const [loading, setLoading] = useState(false);
 
+    // Sync preview with currentPhotoURL when it changes
+    React.useEffect(() => {
+        if (currentPhotoURL) {
+            setPreview(currentPhotoURL);
+        }
+    }, [currentPhotoURL]);
+
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
@@ -63,7 +70,12 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({ currentPhotoURL, onUploadSu
         <div className="avatar-upload-container">
             <div className="avatar-preview-wrapper">
                 {preview ? (
-                    <img src={preview} alt="Profile" className="avatar-preview-img" />
+                    <img
+                        src={preview}
+                        alt="Profile"
+                        className="avatar-preview-img"
+                        referrerPolicy="no-referrer"
+                    />
                 ) : (
                     <Camera size={32} color="#94a3b8" />
                 )}
