@@ -36,3 +36,8 @@ server/data/
 
 # TypeScript build info
 *.tsbuildinfo
+
+# Client build and lint logs
+client/dist/
+client/lint_errors.json
+test_journal.js

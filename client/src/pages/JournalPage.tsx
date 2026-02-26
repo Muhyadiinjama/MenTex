@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import axios from "axios";
 import { PlusCircle, Save, Trash2, Edit3, Loader2, Heart, Briefcase, Home, Coffee, MessageCircle, ArrowRight, Sun, Moon } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
+import { API_URL } from "../config";
 import "./JournalPage.css";
 
 interface JournalEntry {
@@ -34,7 +34,7 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
     const [category, setCategory] = useState("Personal");
     const [isSaving, setIsSaving] = useState(false);
 
-    const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
+
 
     const categories = [
         { id: 'Personal', label: lang === 'BM' ? 'Peribadi' : 'Personal', icon: Heart, color: '#0F766E' },
@@ -54,8 +54,10 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
     const fetchJournals = async () => {
         try {
             setLoading(true);
-            const res = await axios.get(`${API_BASE}/api/journal/${currentUser?.uid}`);
-            setEntries(res.data);
+            const res = await fetch(`${API_URL}/api/journal/${currentUser?.uid}`);
+            if (!res.ok) throw new Error("Failed to load journals");
+            const data = await res.json();
+            setEntries(data);
         } catch (err) {
             console.error("Error fetching journals:", err);
             toast.error(lang === "BM" ? "Gagal memuat jurnal" : "Failed to load journals");
@@ -74,18 +76,32 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
             setIsSaving(true);
             if (currentId) {
                 // Update
-                const res = await axios.put(`${API_BASE}/api/journal/${currentId}`, { title, content, category });
-                setEntries(entries.map(e => e._id === currentId ? res.data : e));
+                const res = await fetch(`${API_URL}/api/journal/${currentId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, content, category })
+                });
+                if (!res.ok) throw new Error("Update failed");
+                const data = await res.json();
+
+                setEntries(entries.map(e => e._id === currentId ? data : e));
                 toast.success(lang === "BM" ? "Jurnal dikemas kini" : "Journal updated");
             } else {
                 // Create
-                const res = await axios.post(`${API_BASE}/api/journal`, {
-                    userId: currentUser?.uid,
-                    title,
-                    content,
-                    category
+                const res = await fetch(`${API_URL}/api/journal`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: currentUser?.uid,
+                        title,
+                        content,
+                        category
+                    })
                 });
-                setEntries([res.data, ...entries]);
+                if (!res.ok) throw new Error("Creation failed");
+                const data = await res.json();
+
+                setEntries([data, ...entries]);
                 toast.success(lang === "BM" ? "Jurnal disimpan" : "Journal saved");
             }
 
@@ -110,7 +126,8 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
     const handleDelete = async (id: string) => {
         if (window.confirm(lang === "BM" ? "Adakah anda pasti mahu memadam jurnal ini?" : "Are you sure you want to delete this journal?")) {
             try {
-                await axios.delete(`${API_BASE}/api/journal/${id}`);
+                const res = await fetch(`${API_URL}/api/journal/${id}`, { method: 'DELETE' });
+                if (!res.ok) throw new Error("Delete failed");
                 setEntries(entries.filter(e => e._id !== id));
                 toast.success(lang === "BM" ? "Jurnal dipadam" : "Journal deleted");
             } catch (err) {
