@@ -1,18 +1,4 @@
 {
-  "functions": [
-    {
-      "source": "server",
-      "codebase": "default",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log",
-        "*.local"
-      ],
-      "runtime": "nodejs20"
-    }
-  ],
   "hosting": {
     "public": "client/dist",
     "ignore": [

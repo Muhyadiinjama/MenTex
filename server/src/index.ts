@@ -41,13 +41,7 @@ app.listen(port, () => {
   console.log(`Backend running on port ${port}`);
 });
 
-// Export the Express app as a Firebase Cloud Function
-import { onRequest } from "firebase-functions/v2/https";
+import { startWeeklyReportCron } from "./jobs/weeklyReportCron.js";
 
-export const api = onRequest(
-  { region: "us-central1", cors: true, timeoutSeconds: 300, minInstances: 0 },
-  app
-);
-
-// Export Scheduled job for Firebase
-export * from "./jobs/weeklyReportCron.js";
+// Start Cron Jobs
+startWeeklyReportCron();
