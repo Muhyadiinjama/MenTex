@@ -1,8 +1,12 @@
 {
-  "name": "mindfulai-server",
+  "name": "mentex-server",
   "private": true,
   "version": "1.1.1",
   "type": "module",
+  "main": "dist/index.js",
+  "engines": {
+    "node": "20"
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
@@ -15,6 +19,8 @@
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "firebase-admin": "^13.7.0",
+    "firebase-functions": "^7.0.6",
     "mongoose": "^9.1.6",
     "multer": "^2.0.2",
     "node-cron": "^4.2.1",

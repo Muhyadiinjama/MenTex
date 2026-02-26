@@ -7,11 +7,11 @@ import chatsRoute from "./routes/chats.js";
 import userRoute from "./routes/user.js";
 import moodRoute from "./routes/mood.routes.js";
 import contactRoute from "./routes/contact.js";
-import { startCronJobs } from "./jobs/weeklyReportCron.js";
+
 
 const app = express();
 const port = Number(process.env.PORT) || 4000;
-const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/mindfulai";
+const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/mentex";
 
 mongoose.connect(mongoUri)
   .then(() => console.log("Connected to MongoDB"))
@@ -26,8 +26,7 @@ app.use("/user", userRoute);
 app.use("/api/mood", moodRoute);
 app.use("/contact", contactRoute);
 
-// Start Cron Jobs
-startCronJobs();
+// Start Cron Jobs (now handled by Firebase)
 
 app.get("/", (_req, res) => {
   res.send("MenTex API is running. Use /health for status.");
@@ -38,6 +37,20 @@ app.get("/health", (_req, res) => {
   res.json({ ok: true });
 });
 
-app.listen(port, () => {
-  console.log(`Backend running on http://localhost:${port}`);
-});
+// Conditionally expose standard node listener for local dev
+if (process.env.NODE_ENV !== "production") {
+  app.listen(port, () => {
+    console.log(`Development backend running on http://localhost:${port}`);
+  });
+}
+
+// Export the Express app as a Firebase Cloud Function
+import { onRequest } from "firebase-functions/v2/https";
+
+export const api = onRequest(
+  { region: "us-central1", cors: true, timeoutSeconds: 300, minInstances: 0 },
+  app
+);
+
+// Export Scheduled job for Firebase
+export * from "./jobs/weeklyReportCron.js";
