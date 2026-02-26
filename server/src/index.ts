@@ -37,12 +37,9 @@ app.get("/health", (_req, res) => {
   res.json({ ok: true });
 });
 
-// Conditionally expose standard node listener for local dev
-if (process.env.NODE_ENV !== "production") {
-  app.listen(port, () => {
-    console.log(`Development backend running on http://localhost:${port}`);
-  });
-}
+app.listen(port, () => {
+  console.log(`Backend running on port ${port}`);
+});
 
 // Export the Express app as a Firebase Cloud Function
 import { onRequest } from "firebase-functions/v2/https";
