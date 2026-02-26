@@ -18,17 +18,4 @@ services:
       - key: GEMINI_MODEL
         value: gemini-2.5-flash
 
-  # CLIENT (Frontend)
-  - type: web
-    name: mentex-client
-    env: static
-    rootDir: client
-    buildCommand: npm install && npm run build
-    staticPublishDir: dist
-    envVars:
-      - key: VITE_API_URL
-        value: https://mentex-server.onrender.com
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+
