@@ -137,15 +137,20 @@ export async function streamChat(
 }
 
 export async function sendContactMessage(formData: FormData) {
-  const res = await fetch(`${API_URL}/contact`, {
+  // Add the Web3Forms Access Key
+  formData.append("access_key", "0bcf7858-0832-447a-a52c-43af72c6c159");
+
+  // Make the request directly to Web3Forms API instead of our backend
+  const res = await fetch("https://api.web3forms.com/submit", {
     method: "POST",
     body: formData
-    // Note: Don't set Content-Type header when using FormData; 
-    // the browser will set it with the correct boundary automatically.
   });
-  if (!res.ok) {
-    const errorData = await res.json().catch(() => ({}));
-    throw new Error(errorData.details || "Failed to send message");
+
+  const data = await res.json();
+
+  if (!data.success) {
+    throw new Error(data.message || "Failed to send message");
   }
-  return res.json();
+
+  return data;
 }
