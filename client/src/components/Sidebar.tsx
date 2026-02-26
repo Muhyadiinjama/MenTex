@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, X, MessageCircle, Trash2, MoreVertical, PanelLeftClose, Plus } from 'lucide-react';
+import { LayoutDashboard, X, MessageCircle, Trash2, MoreVertical, PanelLeftClose, Plus, BookOpen } from 'lucide-react';
 import { getChats, Chat, deleteChat } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import ConfirmationModal from './ConfirmationModal';
@@ -91,6 +91,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onSelectChat, curren
   const menuItems = [
     { icon: LayoutDashboard, label: t.dashboard, path: '/dashboard' },
     { icon: Plus, label: t.checkin, path: '/check-in' },
+    { icon: BookOpen, label: lang === 'BM' ? 'Jurnal' : 'Journal', path: '/journal' },
     { icon: LayoutDashboard, label: t.analytics, path: '/weekly-report' },
   ];
 

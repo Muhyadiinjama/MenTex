@@ -1,0 +1,330 @@
+.journal-page {
+    padding: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.journal-header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.journal-intro h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--color-primary, #0F766E);
+    margin-bottom: 0.5rem;
+}
+
+.journal-intro p {
+    color: var(--color-text-sub, #475569);
+    font-size: 1.1rem;
+}
+
+.new-journal-btn {
+    padding: 0.8rem 1.8rem;
+    border-radius: var(--radius-full, 9999px);
+    font-size: 1rem;
+    background: var(--color-primary, #0F766E);
+    color: white;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all 0.2s;
+}
+
+.new-journal-btn:hover {
+    background: var(--color-secondary, #334155);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Editor Styles - Glassmorphism Card to match .card in app.css */
+.journal-editor-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: var(--radius-lg, 24px);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.editor-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.editor-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text, #0f172a);
+    opacity: 0.8;
+}
+
+.category-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.cat-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: var(--color-text, #0f172a);
+    border-radius: var(--radius-md, 12px);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.cat-btn:hover {
+    background: #f8fafc;
+}
+
+.cat-btn.active {
+    background: var(--cat-color);
+    color: white;
+    border-color: var(--cat-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.journal-title-input-premium {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: var(--radius-md, 12px);
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: var(--color-text, #0f172a);
+    transition: all 0.2s;
+}
+
+.journal-title-input-premium:focus {
+    outline: none;
+    border-color: var(--color-primary, #0F766E);
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+.journal-body-input-premium {
+    width: 100%;
+    min-height: 250px;
+    padding: 1.2rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    border-radius: var(--radius-md, 12px);
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: var(--color-text, #0f172a);
+    resize: vertical;
+    transition: all 0.2s;
+}
+
+.journal-body-input-premium:focus {
+    outline: none;
+    border-color: var(--color-primary, #0F766E);
+}
+
+.editor-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.save-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* List View Styles */
+.entries-masonry {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.premium-journal-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: var(--radius-lg, 24px);
+    padding: 1.8rem;
+    position: relative;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+}
+
+.premium-journal-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary-light, #99F6E4);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.entry-cat-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-sm, 8px);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.entry-date {
+    font-size: 0.85rem;
+    color: var(--color-text-sub, #475569);
+    font-weight: 500;
+}
+
+.entry-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-text, #0f172a);
+}
+
+.entry-snippet {
+    color: var(--color-text-sub, #475569);
+    font-size: 1rem;
+    line-height: 1.6;
+    display: -webkit-box;
+    line-clamp: 4;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.entry-moods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.mood-tag {
+    background: var(--color-tertiary, #99F6E4);
+    color: var(--color-primary, #0F766E);
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.entry-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: auto;
+    padding-top: 1.2rem;
+    border-top: 1px dashed #e2e8f0;
+}
+
+.action-circle-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: var(--color-text-sub, #475569);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-circle-btn:hover {
+    background: var(--color-quaternary, #F8FAFC);
+    color: var(--color-primary, #0F766E);
+    border-color: var(--color-primary, #0F766E);
+}
+
+.action-circle-btn.danger:hover {
+    background: #FEF2F2;
+    color: #EF4444;
+    border-color: #EF4444;
+}
+
+.talk-ai-mini-btn {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full, 9999px);
+    background: var(--color-primary, #0F766E);
+    color: white;
+    border: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.talk-ai-mini-btn:hover {
+    background: var(--color-secondary, #334155);
+}
+
+/* Empty State Card */
+.empty-state-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px dashed #e2e8f0;
+    border-radius: var(--radius-lg, 24px);
+    padding: 5rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.empty-illustration {
+    font-size: 4rem;
+}
+
+.empty-state-card h3 {
+    font-size: 1.8rem;
+    color: var(--color-text, #0f172a);
+}
+
+.empty-state-card p {
+    color: var(--color-text-sub, #475569);
+    max-width: 400px;
+}
+
+@media (max-width: 640px) {
+    .journal-header-section {
+        flex-direction: column;
+        text-align: center;
+    }
+}

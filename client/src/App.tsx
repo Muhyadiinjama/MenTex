@@ -21,6 +21,7 @@ import WeeklyReportPage from './pages/WeeklyReportPage';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Feedback from './pages/Feedback';
+import JournalPage from './pages/JournalPage';
 
 function AppContent() {
   const { profile } = useAuth();
@@ -106,6 +107,14 @@ function AppContent() {
           element={
             <PrivateRoute>
               <WeeklyReportPage lang={lang} />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/journal"
+          element={
+            <PrivateRoute>
+              <JournalPage lang={lang} />
             </PrivateRoute>
           }
         />

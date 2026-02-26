@@ -1,6 +1,7 @@
 import express from "express";
 import { streamGemini, generateChatTitle } from "../services/gemini.js";
 import { db } from "../services/db.js";
+import { Journal } from "../models/Journal.js";
 
 const router = express.Router();
 
@@ -14,12 +15,31 @@ router.post("/", async (req, res) => {
   try {
     const { messages, chatId, userId, message, moodContext } = req.body;
 
-    // 1. Memory Context
+    // 1. Memory Context & Journals
     let fullContext = "";
     if (userId) {
       const profile = await db.getUserProfile(userId as string);
       if (profile.facts.length > 0) {
         fullContext += "USER FACTS:\n" + profile.facts.join("\n- ") + "\n\n";
+      }
+
+      // Fetch Today's Journals
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
+      const endOfDay = new Date();
+      endOfDay.setHours(23, 59, 59, 999);
+
+      const todayJournals = await Journal.find({
+        userId,
+        createdAt: { $gte: startOfDay, $lte: endOfDay }
+      });
+
+      if (todayJournals.length > 0) {
+        fullContext += "USER'S JOURNALS TODAY (Analyze these for therapy insights):\n";
+        todayJournals.forEach((j, i) => {
+          fullContext += `[Journal ${i + 1}] Title: ${j.title}\nContent: ${j.content}\n\n`;
+        });
+        fullContext += "\nINSTRUCTION: Since the user has written journals today, please weave in some therapeutic reflections or gentle 'therapy' session insights based on what they wrote.\n\n";
       }
     }
 
