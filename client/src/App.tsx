@@ -148,6 +148,8 @@ function AppContent() {
   );
 }
 
+import { ThemeProvider } from './contexts/ThemeContext';
+
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -160,16 +162,18 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  if (loading) {
-    return <Preloader />;
-  }
-
   return (
-    <Router>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
-    </Router>
+    <ThemeProvider>
+      {loading ? (
+        <Preloader />
+      ) : (
+        <Router>
+          <AuthProvider>
+            <AppContent />
+          </AuthProvider>
+        </Router>
+      )}
+    </ThemeProvider>
   );
 }
 

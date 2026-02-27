@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Globe } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { updateUserProfile } from '../services/api';
+import { useTheme } from '../contexts/ThemeContext';
 import './Landing.css';
 import { translations } from '../i18n/translations';
 
@@ -14,6 +15,7 @@ interface LandingProps {
 const Landing: React.FC<LandingProps> = ({ lang, setLang }) => {
     const navigate = useNavigate();
     const { currentUser, refreshProfile } = useAuth();
+    const { theme } = useTheme();
     const [greeting, setGreeting] = useState('');
 
     const handleLangToggle = async () => {
@@ -79,7 +81,11 @@ const Landing: React.FC<LandingProps> = ({ lang, setLang }) => {
 
             <section className="landing-hero">
                 <div className="landing-logo-container landing-reveal-1">
-                    <img src="/branding/main logo.png" alt="MenTex Logo" className="landing-main-logo" />
+                    <img
+                        src={theme === 'dark' ? "/branding/logo-dark.png" : "/branding/main logo.png"}
+                        alt="MenTex Logo"
+                        className="landing-main-logo"
+                    />
                 </div>
 
                 <h1 className="landing-h1 landing-reveal-2">

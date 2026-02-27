@@ -3,7 +3,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding: 24px;
-    background: linear-gradient(180deg, rgba(15, 118, 110, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(180deg, var(--color-bg) 0%, transparent 100%);
 }
 
 .about-container {
@@ -21,9 +21,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(15, 118, 110, 0.1);
-    box-shadow: 0 15px 35px rgba(15, 118, 110, 0.05);
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-xl);
 }
 
 .about-logo-meta {
@@ -97,7 +97,7 @@
 .about-badge-icon {
     width: 48px;
     height: 48px;
-    background: rgba(15, 118, 110, 0.08);
+    background: var(--color-bg-hover);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -122,17 +122,17 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--color-white);
     padding: 10px 16px;
     border-radius: 12px;
-    border: 1px solid rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--color-border-subtle);
     transition: transform 0.2s ease;
 }
 
 .about-feature-item:hover {
     transform: translateX(4px);
-    background: white;
-    border-color: rgba(15, 118, 110, 0.1);
+    background: var(--color-bg-hover);
+    border-color: var(--color-primary);
 }
 
 .feature-check {
@@ -178,7 +178,7 @@
     text-align: center;
     padding: 20px 0;
     opacity: 0.5;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid var(--color-border-subtle);
     margin-top: 10px;
 }
 

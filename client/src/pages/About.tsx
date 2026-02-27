@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext';
 import './About.css';
 import { translations } from '../i18n/translations';
 
@@ -14,6 +15,7 @@ interface AboutProps {
 const About: React.FC<AboutProps> = ({ lang }) => {
     const navigate = useNavigate();
     const { currentUser } = useAuth();
+    const { theme } = useTheme();
     const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 850);
 
     const t = translations[lang].about;
@@ -52,7 +54,11 @@ const About: React.FC<AboutProps> = ({ lang }) => {
                         {/* Hero Section */}
                         <section className="about-hero-card card highlight-card">
                             <div className="about-logo-meta">
-                                <img src="/branding/main logo.png" alt={t.logoAlt} className="about-large-logo" />
+                                <img
+                                    src={theme === 'dark' ? "/branding/logo-dark.png" : "/branding/main logo.png"}
+                                    alt={t.logoAlt}
+                                    className="about-large-logo"
+                                />
                             </div>
                             <h1 className="about-title-h1">{t.title}</h1>
                             <p className="about-subtitle">{t.subtitle}</p>

@@ -46,11 +46,11 @@
 
 /* Editor Styles - Glassmorphism Card to match .card in app.css */
 .journal-editor-card {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: var(--color-white);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-lg, 24px);
     padding: 2.5rem;
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-xl);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     display: flex;
@@ -82,8 +82,8 @@
     align-items: center;
     gap: 0.6rem;
     padding: 0.6rem 1.2rem;
-    border: 1px solid #e2e8f0;
-    background: white;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--color-bg);
     color: var(--color-text, #0f172a);
     border-radius: var(--radius-md, 12px);
     cursor: pointer;
@@ -92,7 +92,7 @@
 }
 
 .cat-btn:hover {
-    background: #f8fafc;
+    background: var(--color-bg-hover);
 }
 
 .cat-btn.active {
@@ -108,8 +108,8 @@
     font-size: 1.5rem;
     font-weight: 700;
     border-radius: var(--radius-md, 12px);
-    border: 1px solid #e2e8f0;
-    background: white;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--color-bg);
     color: var(--color-text, #0f172a);
     transition: all 0.2s;
 }
@@ -127,8 +127,8 @@
     font-size: 1.1rem;
     line-height: 1.7;
     border-radius: var(--radius-md, 12px);
-    border: 1px solid #e2e8f0;
-    background: white;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--color-bg);
     color: var(--color-text, #0f172a);
     resize: vertical;
     transition: all 0.2s;
@@ -144,7 +144,7 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 1.5rem;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--color-border-subtle);
     flex-wrap: wrap;
     gap: 1.5rem;
 }
@@ -163,8 +163,8 @@
 }
 
 .premium-journal-card {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: var(--color-white);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-lg, 24px);
     padding: 1.8rem;
     position: relative;
@@ -174,7 +174,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+    box-shadow: var(--shadow-md);
 }
 
 .premium-journal-card:hover {
@@ -246,7 +246,7 @@
     gap: 0.8rem;
     margin-top: auto;
     padding-top: 1.2rem;
-    border-top: 1px dashed #e2e8f0;
+    border-top: 1px dashed var(--color-border-subtle);
 }
 
 .action-circle-btn {
@@ -256,15 +256,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #e2e8f0;
-    background: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-bg);
     color: var(--color-text-sub, #475569);
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .action-circle-btn:hover {
-    background: var(--color-quaternary, #F8FAFC);
+    background: var(--color-bg-hover);
     color: var(--color-primary, #0F766E);
     border-color: var(--color-primary, #0F766E);
 }
@@ -297,8 +297,8 @@
 
 /* Empty State Card */
 .empty-state-card {
-    background: rgba(255, 255, 255, 0.9);
-    border: 2px dashed #e2e8f0;
+    background: var(--color-white);
+    border: 2px dashed rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-lg, 24px);
     padding: 5rem 2rem;
     text-align: center;

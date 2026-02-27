@@ -6,6 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
+import Skeleton from '../components/Skeleton';
 import { API_URL } from "../config";
 import "./JournalPage.css";
 
@@ -248,9 +249,22 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
                             ) : (
                                 <div className="journal-list-view">
                                     {loading ? (
-                                        <div className="loading-state">
-                                            <div className="spinner"></div>
-                                            <p>{lang === "BM" ? "Menghimpun memori..." : "Gathering memories..."}</p>
+                                        <div className="entries-masonry">
+                                            {[1, 2, 3, 4, 5, 6].map((i) => (
+                                                <div key={i} className="premium-journal-card" style={{ height: '240px' }}>
+                                                    <div className="card-top">
+                                                        <Skeleton width={80} height={24} />
+                                                        <Skeleton width={100} height={16} />
+                                                    </div>
+                                                    <Skeleton width="100%" height={28} className="mt-2" />
+                                                    <Skeleton width="100%" height={100} className="mt-2" />
+                                                    <div className="entry-footer">
+                                                        <Skeleton circle width={36} height={36} />
+                                                        <Skeleton circle width={36} height={36} />
+                                                        <Skeleton width={80} height={32} className="ml-auto" />
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
                                     ) : entries.length === 0 ? (
                                         <div className="empty-state-card animate-fade-in">

@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar';
 import { useAuth } from '../contexts/AuthContext';
 import { useMoodTracking } from '../hooks/useMoodTracking';
 import MoodCalendar from '../components/MoodTracker/MoodCalendar';
+import Skeleton from '../components/Skeleton';
 import './Dashboard.css';
 import { translations } from '../i18n/translations';
 
@@ -252,7 +253,17 @@ const Dashboard: React.FC<DashboardProps> = ({ lang }) => {
 
                             <div className="history-scroll">
                                 {loading ? (
-                                    <div className="history-loading">{t.loading}</div>
+                                    <div className="history-list">
+                                        {[1, 2, 3, 4].map((i) => (
+                                            <div key={i} className="history-item" style={{ cursor: 'default' }}>
+                                                <Skeleton circle width={32} height={32} />
+                                                <div className="history-item-content">
+                                                    <Skeleton width="60%" height={16} className="mb-2" />
+                                                    <Skeleton width="40%" height={12} />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
                                 ) : historyView === 'calendar' ? (
                                     history.length > 0 ? (
                                         <MoodCalendar history={history} />

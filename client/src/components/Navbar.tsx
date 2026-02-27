@@ -1,6 +1,7 @@
 import React from 'react';
-import { Menu, HelpCircle, MessageSquare } from 'lucide-react';
+import { Menu, HelpCircle, MessageSquare, Sun, Moon } from 'lucide-react';
 import UserNav from './UserNav';
+import { useTheme } from '../contexts/ThemeContext';
 import './Navbar.css';
 import { translations } from '../i18n/translations';
 
@@ -12,6 +13,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ pageTitle, isSidebarOpen, onToggleSidebar, lang }) => {
+    const { theme, toggleTheme } = useTheme();
     const t = translations[lang].navbar;
     const feedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdw3fG7f299Vcq5RUrdhJjyxfwF_ZW1QwiptQwAoO7EQAKSkQ/viewform?usp=publish-editor';
 
@@ -34,9 +36,14 @@ const Navbar: React.FC<NavbarProps> = ({ pageTitle, isSidebarOpen, onToggleSideb
             </div>
 
             <div className="dashboard-header-right">
-                <div className="dashboard-date desktop-only">
-                    {new Date().toLocaleDateString(lang === 'EN' ? 'en-US' : 'ms-MY', { weekday: 'long', month: 'long', day: 'numeric' })}
-                </div>
+                <button
+                    className="theme-toggle-single-btn"
+                    onClick={toggleTheme}
+                    title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+                >
+                    {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+                </button>
+
                 <div className="nav-actions-group">
                     <a
                         href={feedbackFormUrl}

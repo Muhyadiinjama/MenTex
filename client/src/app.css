@@ -58,11 +58,40 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
 
+  /* Semantic colors */
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-subtle: rgba(0, 0, 0, 0.04);
+  --color-bg-hover: rgba(0, 0, 0, 0.03);
+
   /* Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 24px;
   --radius-full: 9999px;
+}
+
+.dark-theme {
+  --color-primary: #14B8A6;
+  --color-secondary: #0F172A;
+  --color-tertiary: #334155;
+  --color-quaternary: #0F172A;
+
+  --color-bg: #0F172A;
+  --color-bg-gradient: #0F172A;
+  --color-text: #F8FAFC;
+  --color-text-sub: #94A3B8;
+  --color-white: #1E293B;
+  /* Nav and Card color */
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
+
+  /* Semantic colors */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-bg-hover: rgba(255, 255, 255, 0.06);
 }
 
 * {
@@ -152,10 +181,8 @@ p {
   height: 100vh;
   height: 100dvh;
   /* Dynamic Viewport Height for Mobile */
-  background: rgba(255, 255, 255, 0.85);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--color-white);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   flex-direction: column;
   padding: 24px;
@@ -181,7 +208,7 @@ p {
     transform: translateX(-110%);
     /* Ensure fully hidden */
     box-shadow: var(--shadow-xl);
-    background: #fff;
+    background: var(--color-white);
     /* Solid background on mobile for legibility */
   }
 
@@ -237,7 +264,7 @@ p {
   /* Hidden so children manage their own scrolls */
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--color-bg);
   min-width: 0;
   /* Support for iOS safe area (notches) */
   padding-bottom: env(safe-area-inset-bottom);
@@ -349,11 +376,11 @@ button {
 }
 
 .btn-secondary {
-  background: #f1f5f9;
-  color: #475569;
+  background: var(--color-tertiary);
+  color: var(--color-text);
   padding: 12px 24px;
   border-radius: var(--radius-full);
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(0, 0, 0, 0.06);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -373,8 +400,8 @@ button {
   width: 100%;
   padding: 12px 24px;
   border-radius: var(--radius-full);
-  background: white;
-  border: 1px solid #e2e8f0;
+  background: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -394,11 +421,11 @@ button {
 
 /* Card Component */
 .card {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--color-white);
   border-radius: var(--radius-lg);
   padding: 32px;
   box-shadow: var(--shadow-lg);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
@@ -434,6 +461,23 @@ button {
 .flex-row-gap-10 {
   display: flex;
   gap: 10px;
+}
+
+/* Spacing Utilities */
+.mt-2 {
+  margin-top: 8px;
+}
+
+.mb-2 {
+  margin-bottom: 8px;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.p-4 {
+  padding: 16px;
 }
 
 /* Animations */

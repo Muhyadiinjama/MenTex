@@ -6,10 +6,10 @@
 
 .profile-popover-menu {
     position: absolute;
-    background: white;
+    background: var(--color-white);
     border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--color-border);
     padding: 8px;
     animation: menuFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -42,7 +42,7 @@
 
 .profile-menu-header {
     padding: 8px 12px 12px 12px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid var(--color-border-subtle);
     margin-bottom: 8px;
 }
 
@@ -75,11 +75,11 @@
 }
 
 .profile-menu-item:hover {
-    background: rgba(0, 0, 0, 0.03);
+    background: var(--color-bg-hover);
 }
 
 .profile-menu-item.separate {
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    border-top: 1px solid var(--color-border-subtle);
     margin-top: 4px;
     padding-top: 14px;
 }

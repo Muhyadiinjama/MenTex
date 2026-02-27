@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { LayoutDashboard, X, MessageCircle, Trash2, MoreVertical, PanelLeftClose, Plus, BookOpen } from 'lucide-react';
 import { getChats, Chat, deleteChat } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext';
 import ConfirmationModal from './ConfirmationModal';
 import './Sidebar.css';
 import { translations } from '../i18n/translations';
@@ -20,6 +21,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onSelectChat, curren
   const navigate = useNavigate();
   const location = useLocation();
   const { currentUser, profile } = useAuth();
+  const { theme } = useTheme();
   const t = translations[lang].sidebar;
   const [chats, setChats] = useState<Chat[]>([]);
   const [loading, setLoading] = useState(false);
@@ -128,7 +130,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onSelectChat, curren
               if (window.innerWidth < 850) onClose();
             }}
           >
-            <img src="/branding/logo-sidebar.png" alt="MenTex" className="sidebar-logo" />
+            <img
+              src={theme === 'dark' ? "/branding/logo-dark.png" : "/branding/logo-sidebar.png"}
+              alt="MenTex"
+              className="sidebar-logo"
+            />
           </div>
           <div className="sidebar-header-actions">
             <button
@@ -218,6 +224,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onSelectChat, curren
               {item.label}
             </button>
           ))}
+
         </nav>
       </div>
     </>

@@ -1,0 +1,29 @@
+.skeleton-loader {
+    background: #e2e8f0;
+    background: linear-gradient(90deg,
+            var(--color-tertiary-light, #f1f5f9) 25%,
+            var(--color-bg, #e2e8f0) 50%,
+            var(--color-tertiary-light, #f1f5f9) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite linear;
+    display: block;
+}
+
+.dark-theme .skeleton-loader {
+    background: #1e293b;
+    background: linear-gradient(90deg,
+            #1e293b 25%,
+            #0f172a 50%,
+            #1e293b 75%);
+    background-size: 200% 100%;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

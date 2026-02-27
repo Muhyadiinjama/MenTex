@@ -21,12 +21,13 @@
     width: 100%;
     max-width: 450px;
     position: relative;
-    background: white;
+    background: var(--color-white);
     border-radius: var(--radius-lg);
     padding: 0;
     overflow: hidden;
     animation: fadeIn 0.3s ease-out;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--color-border);
 }
 
 .profile-header {
@@ -64,7 +65,7 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: white;
+    background: var(--color-white);
     padding: 4px;
     margin-bottom: 16px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -189,7 +190,7 @@
 .profile-stat-card {
     flex: 1;
     padding: 12px;
-    border: 1px solid rgba(15, 118, 110, 0.12);
+    border: 1px solid var(--color-border-subtle);
     border-radius: 12px;
     text-align: center;
 }
@@ -215,18 +216,20 @@
 .profile-modal-footer {
     margin-top: 24px;
     padding-top: 20px;
-    border-top: 1px solid rgba(15, 118, 110, 0.1);
+    border-top: 1px solid var(--color-border-subtle);
 }
 
 .profile-logout-btn {
     width: 100%;
-    background: #fff;
-    border: 1px solid #ef4444;
-    color: #ef4444;
+    background: var(--color-white);
+    border: 1px solid var(--color-error);
+    color: var(--color-error);
     box-shadow: none !important;
     transition: all 0.2s ease;
 }
 
 .profile-logout-btn:hover {
-    background: #fef2f2 !important;
+    background: var(--color-bg-hover) !important;
+    color: var(--color-alert);
+    border-color: var(--color-alert);
 }

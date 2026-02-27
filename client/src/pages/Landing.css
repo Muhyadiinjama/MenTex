@@ -4,12 +4,27 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 100vh;
+    min-height: 100vh;
+    min-height: 100dvh;
     position: relative;
     overflow: hidden;
     width: 100%;
-    flex: 1;
-    padding: 28px;
+    padding: 40px 24px;
+    background: var(--color-bg);
+    transition: background 0.5s ease;
+}
+
+/* Mesh Gradient Background */
+.landing-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(at 0% 0%, hsla(175, 77%, 26%, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(199, 89%, 48%, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, hsla(175, 77%, 26%, 0.15) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, hsla(199, 89%, 48%, 0.15) 0px, transparent 50%);
+    z-index: 0;
 }
 
 .landing-loading-wrapper {
@@ -63,8 +78,8 @@
 .lang-switch-btn {
     padding: 10px 20px;
     border-radius: 30px;
-    border: 1px solid rgba(15, 23, 42, 0.1);
-    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--color-white);
     color: var(--color-primary);
     font-weight: 600;
     cursor: pointer;
@@ -122,26 +137,35 @@
 }
 
 .landing-h1 {
-    font-size: clamp(2.1rem, 4.8vw, 3.3rem);
-    margin-bottom: 14px;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    margin-bottom: 24px;
     color: var(--color-text);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    background: linear-gradient(135deg, var(--color-text) 0%, var(--color-primary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .landing-p {
-    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
     color: var(--color-text-sub);
-    margin: 0 auto 40px;
-    line-height: 1.5;
-    max-width: 68ch;
+    margin: 0 auto 48px;
+    line-height: 1.6;
+    max-width: 60ch;
 }
 
 .landing-cta {
-    min-width: 210px;
-    font-size: 1.03rem;
-    box-shadow: 0 14px 24px rgba(15, 118, 110, 0.24);
+    min-width: 240px;
+    height: 60px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    box-shadow: 0 20px 40px rgba(15, 118, 110, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
 }
 
 .landing-footer {

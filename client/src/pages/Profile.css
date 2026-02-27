@@ -22,8 +22,8 @@
 }
 
 .back-button {
-    background: white;
-    border: 1px solid rgba(15, 118, 110, 0.15);
+    background: var(--color-white);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     width: 40px;
     height: 40px;
     border-radius: var(--radius-md);
@@ -221,8 +221,8 @@
 .lang-switch-btn {
     padding: 10px 20px;
     border-radius: 30px;
-    border: 1px solid rgba(15, 118, 110, 0.15);
-    background: white;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--color-white);
     color: var(--color-primary);
     font-weight: 600;
     cursor: pointer;
@@ -313,10 +313,10 @@
 }
 
 .settings-lang-card {
-    background: rgba(0, 0, 0, 0.02);
+    background: var(--color-bg);
     padding: 16px;
     border-radius: 12px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     align-items: center;
     justify-content: space-between;
