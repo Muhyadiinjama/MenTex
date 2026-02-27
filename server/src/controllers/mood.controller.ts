@@ -51,3 +51,39 @@ export const getMoodHistory = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Failed to fetch mood history' });
     }
 };
+
+export const deleteMood = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const deleted = await Mood.findByIdAndDelete(id);
+        if (!deleted) {
+            return res.status(404).json({ error: 'Mood entry not found' });
+        }
+        res.status(200).json({ message: 'Mood successfully deleted' });
+    } catch (error) {
+        console.error("Error deleting mood:", error);
+        res.status(500).json({ error: 'Failed to delete mood' });
+    }
+};
+
+export const updateMoodNote = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const { note } = req.body;
+
+        const updated = await Mood.findByIdAndUpdate(
+            id,
+            { note },
+            { new: true }
+        );
+
+        if (!updated) {
+            return res.status(404).json({ error: 'Mood entry not found' });
+        }
+
+        res.status(200).json(updated);
+    } catch (error) {
+        console.error("Error updating mood note:", error);
+        res.status(500).json({ error: 'Failed to update mood note' });
+    }
+};

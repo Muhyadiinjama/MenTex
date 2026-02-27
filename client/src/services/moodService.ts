@@ -16,6 +16,16 @@ export const getMoodHistory = async (userId: string, days: number = 7) => {
     return response.data;
 };
 
+export const deleteMoodEntry = async (id: string) => {
+    const response = await axios.delete(`${API_URL}/${id}`);
+    return response.data;
+};
+
+export const updateMoodNote = async (id: string, note: string) => {
+    const response = await axios.put(`${API_URL}/${id}/note`, { note });
+    return response.data;
+};
+
 export const generateReport = async (userId: string) => {
     const response = await axios.post(`${API_URL}/generate-report/${userId}`);
     return response.data;

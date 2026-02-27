@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { MessageCircle, BarChart2, Calendar, PlusCircle, CheckCircle, List, X } from 'lucide-react';
+import { MessageCircle, BarChart2, Calendar, PlusCircle, CheckCircle, List, X, Edit2, Trash2, MoreVertical, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
@@ -10,6 +10,8 @@ import { useMoodTracking } from '../hooks/useMoodTracking';
 import MoodCalendar from '../components/MoodTracker/MoodCalendar';
 import './Dashboard.css';
 import { translations } from '../i18n/translations';
+import { deleteMoodEntry, updateMoodNote } from '../services/moodService';
+import toast from 'react-hot-toast';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -33,8 +35,51 @@ const Dashboard: React.FC<DashboardProps> = ({ lang }) => {
     const [greeting, setGreeting] = useState('');
     const [historyView, setHistoryView] = useState<'list' | 'calendar'>('list');
     const [selectedHistoryEntry, setSelectedHistoryEntry] = useState<MoodEntry | null>(null);
+    const [isEditingNote, setIsEditingNote] = useState(false);
+    const [editNoteText, setEditNoteText] = useState('');
+    const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
     const t = translations[lang].dashboard;
     const common = translations[lang].common;
+
+    useEffect(() => {
+        const handleClickOutside = () => setOpenDropdownId(null);
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, []);
+
+    const handleDeleteEntry = async (id: string) => {
+        if (!window.confirm(lang === 'BM' ? 'Adakah anda pasti mahu memadamkan rekod ini?' : 'Are you sure you want to delete this entry?')) return;
+
+        try {
+            await deleteMoodEntry(id);
+            toast.success(lang === 'BM' ? 'Rekod berjaya dipadam' : 'Entry deleted successfully');
+            setSelectedHistoryEntry(null);
+            refetchHistory();
+        } catch (error) {
+            console.error("Failed to delete entry", error);
+            toast.error(lang === 'BM' ? 'Gagal memadam rekod' : 'Failed to delete entry');
+        }
+    };
+
+    const handleSaveNote = async () => {
+        if (!selectedHistoryEntry) return;
+
+        try {
+            await updateMoodNote(selectedHistoryEntry._id, editNoteText);
+            toast.success(lang === 'BM' ? 'Nota berjaya dikemas kini' : 'Note updated successfully');
+            setSelectedHistoryEntry({ ...selectedHistoryEntry, note: editNoteText });
+            setIsEditingNote(false);
+            refetchHistory();
+        } catch (error) {
+            console.error("Failed to update note", error);
+            toast.error(lang === 'BM' ? 'Gagal mengemas kini nota' : 'Failed to update note');
+        }
+    };
+
+    const startEditing = () => {
+        setEditNoteText(selectedHistoryEntry?.note || '');
+        setIsEditingNote(true);
+    };
 
     useEffect(() => {
         const updateGreeting = () => {
@@ -262,11 +307,15 @@ const Dashboard: React.FC<DashboardProps> = ({ lang }) => {
                                 ) : todayHistoryDesc.length > 0 ? (
                                     <div className="history-list">
                                         {todayHistoryDesc.slice(0, 10).map((entry, index) => (
-                                            <button
+                                            <div
                                                 key={index}
                                                 className="history-item"
-                                                onClick={() => setSelectedHistoryEntry(entry as MoodEntry)}
-                                                type="button"
+                                                onClick={() => {
+                                                    setSelectedHistoryEntry(entry as MoodEntry);
+                                                    setIsEditingNote(false);
+                                                }}
+                                                role="button"
+                                                tabIndex={0}
                                             >
                                                 <div className="history-item-emoji">{entry.emoji}</div>
                                                 <div className="history-item-content">
@@ -275,7 +324,46 @@ const Dashboard: React.FC<DashboardProps> = ({ lang }) => {
                                                         {new Date(entry.timestamp).toLocaleDateString(lang === 'EN' ? 'en-US' : 'ms-MY', { weekday: 'short', month: 'short', day: 'numeric' })} at {new Date(entry.timestamp).toLocaleTimeString(lang === 'EN' ? 'en-US' : 'ms-MY', { hour: '2-digit', minute: '2-digit' })}
                                                     </div>
                                                 </div>
-                                            </button>
+                                                <div className="action-menu-container">
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setOpenDropdownId(openDropdownId === entry._id ? null : entry._id);
+                                                        }}
+                                                        className={`action-menu-btn ${openDropdownId === entry._id ? 'active' : ''}`}
+                                                        aria-label="More options"
+                                                    >
+                                                        <MoreVertical size={18} />
+                                                    </button>
+                                                    {openDropdownId === entry._id && (
+                                                        <div className="action-dropdown-menu">
+                                                            <button
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    setSelectedHistoryEntry(entry as MoodEntry);
+                                                                    setIsEditingNote(true);
+                                                                    setOpenDropdownId(null);
+                                                                }}
+                                                                className="action-dropdown-item"
+                                                            >
+                                                                <Edit2 size={14} />
+                                                                {common.edit}
+                                                            </button>
+                                                            <button
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    handleDeleteEntry(entry._id);
+                                                                    setOpenDropdownId(null);
+                                                                }}
+                                                                className="action-dropdown-item delete-action"
+                                                            >
+                                                                <Trash2 size={14} />
+                                                                {common.delete}
+                                                            </button>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
                                         ))}
                                     </div>
                                 ) : (
@@ -367,21 +455,70 @@ const Dashboard: React.FC<DashboardProps> = ({ lang }) => {
                                             </p>
                                         </div>
                                     </div>
-                                    <button
-                                        className="history-note-close"
-                                        type="button"
-                                        onClick={() => setSelectedHistoryEntry(null)}
-                                        aria-label="Close note details"
-                                    >
-                                        <X size={18} />
-                                    </button>
+                                    <div className="modal-actions-wrap">
+                                        {!isEditingNote && (
+                                            <button
+                                                onClick={startEditing}
+                                                className="modal-action-icon"
+                                                title={common.edit}
+                                                aria-label={common.edit}
+                                            >
+                                                <Edit2 size={16} strokeWidth={1.5} />
+                                            </button>
+                                        )}
+                                        <button
+                                            onClick={() => handleDeleteEntry(selectedHistoryEntry._id)}
+                                            className="modal-action-icon"
+                                            title={common.delete}
+                                            aria-label={common.delete}
+                                        >
+                                            <Trash2 size={16} strokeWidth={1.5} />
+                                        </button>
+                                        <button
+                                            className="modal-action-icon"
+                                            type="button"
+                                            onClick={() => setSelectedHistoryEntry(null)}
+                                            aria-label="Close note details"
+                                        >
+                                            <X size={16} strokeWidth={1.5} />
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <div className="history-note-body">
-                                    <p className="history-note-label">{lang === 'EN' ? 'Saved reason' : 'Sebab disimpan'}</p>
-                                    <p className="history-note-text">
-                                        {selectedHistoryEntry.note?.trim() || (lang === 'EN' ? 'No note added for this check-in.' : 'Tiada nota ditambah untuk daftar masuk ini.')}
+                                <div className="history-note-body px-6 pb-6">
+                                    <p className="edit-note-label">
+                                        {lang === 'EN' ? 'Saved reason' : 'Sebab disimpan'}
                                     </p>
+                                    {isEditingNote ? (
+                                        <div className="edit-note-form">
+                                            <textarea
+                                                value={editNoteText}
+                                                onChange={(e) => setEditNoteText(e.target.value)}
+                                                className="edit-note-textarea"
+                                                placeholder={lang === 'EN' ? 'Add your note here...' : 'Tambah nota anda di sini...'}
+                                                autoFocus
+                                            />
+                                            <div className="edit-note-actions">
+                                                <button
+                                                    onClick={() => setIsEditingNote(false)}
+                                                    className="edit-note-btn"
+                                                >
+                                                    {common.cancel}
+                                                </button>
+                                                <button
+                                                    onClick={handleSaveNote}
+                                                    className="edit-note-btn"
+                                                >
+                                                    {common.save}
+                                                    <ChevronDown size={14} strokeWidth={2.5} />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <p className="history-note-text mt-2 block w-full border border-transparent">
+                                            {selectedHistoryEntry.note?.trim() || (lang === 'EN' ? 'No note added for this check-in.' : 'Tiada nota ditambah untuk daftar masuk ini.')}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         </div>

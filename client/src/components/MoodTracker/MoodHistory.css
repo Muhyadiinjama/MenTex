@@ -167,6 +167,183 @@
 
     .mood-history-overlay,
     .mood-history-modal {
-        animation: none;
+        opacity: 1;
     }
+}
+
+/* Action Dropdown Styles */
+.action-menu-container {
+    position: relative;
+    margin-left: auto;
+    padding-left: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.action-menu-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-text-sub);
+    padding: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.action-menu-btn:hover,
+.action-menu-btn.active {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--color-text);
+}
+
+.action-dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 4px;
+    background: white;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    z-index: 100;
+    min-width: 130px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.action-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    text-align: left;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    transition: all 0.2s;
+}
+
+.action-dropdown-item:hover {
+    background: rgba(15, 23, 42, 0.04);
+}
+
+.action-dropdown-item.delete-action {
+    color: #ef4444;
+}
+
+.action-dropdown-item.delete-action:hover {
+    background: rgba(239, 68, 68, 0.08);
+    color: #dc2626;
+}
+
+/* Edit Note Modal Exact Styling */
+.edit-note-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    margin-top: 8px;
+}
+
+.edit-note-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.edit-note-textarea {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #8cbab4;
+    border-radius: 16px;
+    outline: none;
+    resize: none;
+    min-height: 100px;
+    color: #334155;
+    background: #ffffff;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.edit-note-textarea:focus {
+    border-color: #4b8a81;
+}
+
+.edit-note-textarea::placeholder {
+    color: #94a3b8;
+}
+
+.edit-note-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+.edit-note-btn {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: inherit;
+}
+
+.edit-note-btn:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.edit-note-btn svg {
+    color: #64748b;
+}
+
+/* Modal Icons Layout */
+.modal-actions-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.modal-action-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.modal-action-icon:hover {
+    background: #f1f5f9;
+    color: #334155;
+    border-color: #94a3b8;
 }

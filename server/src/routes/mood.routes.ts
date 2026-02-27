@@ -1,5 +1,5 @@
 import express from 'express';
-import { logMood, getMoodHistory } from '../controllers/mood.controller.js';
+import { logMood, getMoodHistory, deleteMood, updateMoodNote } from '../controllers/mood.controller.js';
 import { generateReport, getReports, getLatestReport } from '../controllers/analytics.controller.js';
 
 const router = express.Router();
@@ -7,6 +7,8 @@ const router = express.Router();
 // Mood Routes
 router.post('/log', logMood);
 router.get('/history/:userId', getMoodHistory);
+router.delete('/:id', deleteMood);
+router.put('/:id/note', updateMoodNote);
 
 // Analytics Routes
 router.post('/generate-report/:userId', generateReport);
