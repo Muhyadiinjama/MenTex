@@ -22,19 +22,13 @@ const Feedback: React.FC<FeedbackProps> = ({ lang }) => {
     const [formData, setFormData] = useState({
         name: profile?.name || currentUser?.displayName || '',
         email: currentUser?.email || '',
-        subject: 'feedback',
+        subject: 'Send Feedback',
         message: '',
         screenshot: null as File | null
     });
 
     const t = translations[lang].feedback;
     const tContact = translations[lang].contact;
-
-    const categories = [
-        { id: 'report', label: tContact.subjects.report },
-        { id: 'feedback', label: tContact.subjects.feedback },
-        { id: 'improvement', label: tContact.subjects.improvement }
-    ];
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -149,18 +143,15 @@ const Feedback: React.FC<FeedbackProps> = ({ lang }) => {
                                         <label className="contact-label">{tContact.subject}</label>
                                         <div className="input-with-icon">
                                             <MessageSquare size={18} className="field-icon" />
-                                            <select
+                                            <input
+                                                type="text"
                                                 name="subject"
                                                 value={formData.subject}
                                                 onChange={handleChange}
+                                                readOnly
                                                 required
-                                                className="contact-select"
                                                 title={tContact.subject}
-                                            >
-                                                {categories.map(cat => (
-                                                    <option key={cat.id} value={cat.id}>{cat.label}</option>
-                                                ))}
-                                            </select>
+                                            />
                                         </div>
                                     </div>
 

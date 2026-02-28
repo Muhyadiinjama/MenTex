@@ -1,4 +1,5 @@
 import React from 'react';
+import { format } from 'date-fns';
 import { translations } from '../../i18n/translations';
 
 interface InsightsCardProps {
@@ -28,6 +29,15 @@ const InsightsCard: React.FC<InsightsCardProps> = ({ insights, lang }) => {
         difficult: recommendations.filter((r) => r.difficulty === 'difficult')
     };
 
+    const formatHighlight = (highlight: string) => {
+        const [maybeDate, ...rest] = highlight.split(' + ');
+        const parsed = new Date(maybeDate);
+        if (Number.isNaN(parsed.getTime()) || rest.length === 0) return highlight;
+        const text = rest.join(' + ').trim();
+        const polished = text.endsWith('.') ? text : `${text}.`;
+        return `${format(parsed, 'MMM d, h:mm a')} — ${polished}`;
+    };
+
     return (
         <div className="weekly-panel weekly-section">
             <div className="insights-card insights-summary-card">
@@ -49,7 +59,7 @@ const InsightsCard: React.FC<InsightsCardProps> = ({ insights, lang }) => {
                     <h4 className="insights-card-title">{t.highlights}</h4>
                     <ul className="insights-list">
                         {positiveHighlights.map((highlight, idx) => (
-                            <li key={idx}>{highlight}</li>
+                            <li key={idx}>{formatHighlight(highlight)}</li>
                         ))}
                     </ul>
                 </div>
@@ -59,7 +69,7 @@ const InsightsCard: React.FC<InsightsCardProps> = ({ insights, lang }) => {
                 <h3 className="weekly-section-title">{t.recommendations}</h3>
                 <div className="recommend-grid">
                     {(['easy', 'medium', 'difficult'] as const).map((difficulty) => (
-                        <div key={difficulty} className="recommend-card">
+                        <div key={difficulty} className={`recommend-card recommend-card-${difficulty}`}>
                             <span
                                 className={`difficulty-badge ${difficulty === 'easy'
                                     ? 'difficulty-easy'

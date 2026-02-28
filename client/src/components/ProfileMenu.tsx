@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Settings, HelpCircle, LogOut, Info, Mail, MessageSquare } from 'lucide-react';
+import { User, Settings, HelpCircle, LogOut, Info, Mail, MessageSquare, Stethoscope } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -77,6 +77,11 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ isOpen, onClose, position = '
                         onClick={() => { navigate('/settings'); onClose(); }}
                     />
                     <MenuItem
+                        icon={Stethoscope}
+                        label={lang === 'BM' ? 'Terapis Saya' : 'My Therapist'}
+                        onClick={() => { navigate('/my-therapist'); onClose(); }}
+                    />
+                    <MenuItem
                         icon={Info}
                         label={t.about}
                         onClick={() => { navigate('/about'); onClose(); }}
@@ -96,7 +101,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ isOpen, onClose, position = '
                         icon={HelpCircle}
                         label={t.help}
                         separate={true}
-                        onClick={() => { toast(t.helpSoon); onClose(); }}
+                        onClick={() => { navigate('/help'); onClose(); }}
                     />
                     <MenuItem
                         icon={LogOut}

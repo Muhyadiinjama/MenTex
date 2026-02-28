@@ -10,6 +10,18 @@ const userSchema = new mongoose.Schema({
     photoURL: String,
     preferences: [String],
     preferredLanguage: { type: String, enum: ['EN', 'BM'], default: 'EN' },
+    therapist: {
+        fullName: String,
+        email: String,
+        phone: String,
+        clinicName: String,
+        sessionSchedule: String,
+        nextSessionDate: String,
+        privateNotes: String
+    },
+    therapistReport: {
+        lastSentAt: String
+    }
 }, { timestamps: true });
 
 export const User = mongoose.model('User', userSchema);

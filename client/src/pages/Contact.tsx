@@ -71,23 +71,7 @@ const Contact: React.FC<ContactProps> = ({ lang }) => {
             }
 
             await sendContactMessage(submissionData);
-
-            // Dynamic success message based on category
-            let successMsg = "";
-            if (formData.subject === t.subjects.report ||
-                formData.subject === t.subjects.feedback ||
-                formData.subject === t.subjects.improvement) {
-
-                successMsg = lang === 'EN'
-                    ? `Thank you for Your Message! we will see and fix your "${formData.subject}"`
-                    : `Terima kasih atas Mesej anda! kami akan melihat dan membaiki "${formData.subject}" anda`;
-            } else {
-                successMsg = lang === 'EN'
-                    ? "Thank you for Your Message!"
-                    : "Terima kasih atas Mesej anda!";
-            }
-
-            toast.success(successMsg);
+            toast.success(t.success);
             setFormData(prev => ({
                 ...prev,
                 subject: '',
@@ -125,14 +109,12 @@ const Contact: React.FC<ContactProps> = ({ lang }) => {
 
                 <div className="contact-scroll-area">
                     <div className="contact-container">
-
                         <div className="contact-hero-section">
                             <h1 className="contact-title-h1">{t.title}</h1>
                             <p className="contact-subtitle">{t.subtitle}</p>
                         </div>
 
                         <div className="contact-grid">
-                            {/* Contact Form */}
                             <div className="card contact-form-card">
                                 <h2 className="contact-form-title">{t.formTitle}</h2>
                                 <form onSubmit={handleSubmit} className="contact-form">
@@ -173,13 +155,7 @@ const Contact: React.FC<ContactProps> = ({ lang }) => {
                                             <select
                                                 name="subject"
                                                 value={formData.subject}
-                                                onChange={(e) => {
-                                                    const val = e.target.value;
-                                                    setFormData(prev => ({
-                                                        ...prev,
-                                                        subject: val
-                                                    }));
-                                                }}
+                                                onChange={handleChange}
                                                 className="contact-select"
                                                 required
                                                 title={t.subject}
@@ -202,16 +178,14 @@ const Contact: React.FC<ContactProps> = ({ lang }) => {
                                                 <input
                                                     type="text"
                                                     name="customSubject"
-                                                    onChange={(e) => {
-                                                        const val = e.target.value;
-                                                        setFormData(prev => ({ ...prev, customSubject: val }));
-                                                    }}
+                                                    onChange={handleChange}
                                                     required
                                                     placeholder={t.subjects.custom}
                                                 />
                                             </div>
                                         </div>
                                     )}
+
                                     {showScreenshotUpload && (
                                         <div className="input-group-vertical animate-slide-down">
                                             <label className="contact-label">{t.uploadScreenshot}</label>
@@ -270,7 +244,6 @@ const Contact: React.FC<ContactProps> = ({ lang }) => {
                                 </form>
                             </div>
 
-                            {/* Info Card */}
                             <div className="contact-info-column">
                                 <div className="card contact-info-card">
                                     <h3 className="info-card-title">{t.directEmail}</h3>

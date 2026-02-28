@@ -22,6 +22,8 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Feedback from './pages/Feedback';
 import JournalPage from './pages/JournalPage';
+import MyTherapist from './pages/MyTherapist';
+import Help from './pages/Help';
 
 function AppContent() {
   const { profile } = useAuth();
@@ -119,6 +121,14 @@ function AppContent() {
           }
         />
         <Route
+          path="/my-therapist"
+          element={
+            <PrivateRoute>
+              <MyTherapist lang={lang} />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/about"
           element={
             <PrivateRoute>
@@ -131,6 +141,14 @@ function AppContent() {
           element={
             <PrivateRoute>
               <Contact lang={lang} />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/help"
+          element={
+            <PrivateRoute>
+              <Help lang={lang} />
             </PrivateRoute>
           }
         />

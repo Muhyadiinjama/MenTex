@@ -54,6 +54,18 @@ export interface UserProfile {
   dateOfBirth?: string;
   photoURL?: string;
   preferredLanguage?: 'EN' | 'BM';
+  therapist?: {
+    fullName?: string;
+    email?: string;
+    phone?: string;
+    clinicName?: string;
+    sessionSchedule?: string;
+    nextSessionDate?: string;
+    privateNotes?: string;
+  };
+  therapistReport?: {
+    lastSentAt?: string;
+  };
 }
 
 export async function updateUserProfile(userId: string, data: UserProfile) {

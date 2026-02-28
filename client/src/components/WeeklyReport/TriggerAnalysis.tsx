@@ -29,6 +29,15 @@ const TriggerAnalysis: React.FC<TriggerAnalysisProps> = ({ triggers, lang }) => 
         }
     };
 
+    const buildInsightSentence = (item: Trigger) => {
+        const trigger = item.trigger?.trim() || 'Unspecified trigger';
+        const category = item.category?.trim();
+        const frequency = item.frequency?.trim();
+        const categoryText = category && !['other', 'general'].includes(category.toLowerCase()) ? ` in ${category}` : '';
+        const frequencyText = frequency ? ` ${frequency}` : '';
+        return `${trigger}${categoryText}${frequencyText}`.trim();
+    };
+
     return (
         <div className="weekly-panel weekly-section">
             <h3 className="weekly-section-title">{t.triggers}</h3>
@@ -36,8 +45,7 @@ const TriggerAnalysis: React.FC<TriggerAnalysisProps> = ({ triggers, lang }) => 
                 <table className="trigger-table">
                     <thead>
                         <tr>
-                            <th>{t.reason}</th>
-                            <th>{t.observation}</th>
+                            <th>Trigger Insight</th>
                             <th>{t.impactNotes}</th>
                             <th>{t.impact}</th>
                         </tr>
@@ -45,8 +53,7 @@ const TriggerAnalysis: React.FC<TriggerAnalysisProps> = ({ triggers, lang }) => 
                     <tbody>
                         {visibleTriggers.map((item, idx) => (
                             <tr key={idx}>
-                                <td>{item.trigger}</td>
-                                <td>{item.category}</td>
+                                <td>{buildInsightSentence(item)}</td>
                                 <td>{item.frequency || 'N/A'}</td>
                                 <td>
                                     <span className={`impact-badge ${getImpactClass(item.impact)}`}>
