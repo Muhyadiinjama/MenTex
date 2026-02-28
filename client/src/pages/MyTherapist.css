@@ -1,0 +1,183 @@
+.therapist-scroll-area {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.therapist-container {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.therapist-card {
+  padding: 24px;
+}
+
+.therapist-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.therapist-head-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.therapist-heading-wrap {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.therapist-badge-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(26, 158, 127, 0.12);
+  color: var(--color-primary);
+  display: grid;
+  place-items: center;
+}
+
+.therapist-title {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.therapist-subtitle {
+  margin: 4px 0 0;
+  color: var(--color-text-sub);
+}
+
+.therapist-empty-state {
+  border: 1px dashed rgba(26, 158, 127, 0.4);
+  background: rgba(26, 158, 127, 0.06);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.therapist-empty-state p {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.therapist-empty-state .btn-primary {
+  margin-top: 10px;
+  width: fit-content;
+}
+
+.therapist-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.therapist-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.therapist-field span {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.therapist-field input,
+.therapist-field textarea {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 11px 12px;
+  color: var(--color-text);
+  background: var(--color-white);
+}
+
+.therapist-field textarea {
+  resize: vertical;
+}
+
+.therapist-field-full {
+  grid-column: 1 / -1;
+}
+
+.therapist-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.therapist-delete-btn {
+  border-color: rgba(220, 38, 38, 0.25);
+  color: #b91c1c;
+}
+
+.therapist-delete-btn:hover {
+  border-color: rgba(220, 38, 38, 0.45);
+  background: rgba(220, 38, 38, 0.08);
+}
+
+.therapist-view-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.therapist-view-row {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-hover);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.therapist-view-row-full {
+  grid-column: 1 / -1;
+}
+
+.therapist-view-label {
+  margin: 0 0 6px;
+  font-size: 0.84rem;
+  color: var(--color-text-sub);
+}
+
+.therapist-view-value {
+  margin: 0;
+  color: var(--color-text);
+  font-weight: 600;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 800px) {
+  .therapist-scroll-area {
+    padding: 16px;
+  }
+
+  .therapist-form-grid,
+  .therapist-view-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .therapist-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .therapist-edit-btn {
+    width: fit-content;
+  }
+
+  .therapist-head-actions {
+    flex-wrap: wrap;
+  }
+}

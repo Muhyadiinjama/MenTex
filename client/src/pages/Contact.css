@@ -40,7 +40,6 @@
     align-items: start;
 }
 
-/* Form Styling */
 .contact-form-card {
     padding: 40px;
     background: var(--color-white);
@@ -60,46 +59,54 @@
     gap: 20px;
 }
 
+.input-group-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.contact-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-sub);
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.field-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--color-text-sub);
+    pointer-events: none;
+}
+
+.input-with-icon input,
 .contact-select {
     width: 100%;
     padding: 12px 14px 12px 42px;
     font-size: 1rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background: var(--color-white);
     color: var(--color-text);
-    appearance: none;
     outline: none;
     transition: all 0.2s ease;
+}
+
+.contact-select {
+    appearance: none;
     cursor: pointer;
 }
 
-.contact-select:focus {
+.input-with-icon input:focus,
+.contact-select:focus,
+.contact-textarea:focus {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
-}
-
-.animate-slide-down {
-    animation: contactSlideDownIn 0.3s ease-out forwards;
-}
-
-@keyframes contactSlideDownIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.contact-label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--color-text-sub);
-    margin-bottom: 4px;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
 }
 
 .contact-textarea {
@@ -107,30 +114,38 @@
     padding: 14px 16px;
     font-size: 1rem;
     font-family: inherit;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background: var(--color-white);
     color: var(--color-text);
-    transition: all 0.2s ease;
     outline: none;
-    resize: none;
-    box-shadow: var(--shadow-sm);
-}
-
-.contact-textarea:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+    resize: vertical;
+    min-height: 140px;
 }
 
 .contact-submit-btn {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 8px;
     gap: 12px;
 }
 
-/* Screenshot Upload Styles */
+.animate-slide-down {
+    animation: contactSlideDownIn 0.25s ease-out forwards;
+}
+
+@keyframes contactSlideDownIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .screenshot-upload-wrapper {
-    margin-top: 6px;
+    margin-top: 2px;
 }
 
 .screenshot-dropzone {
@@ -150,7 +165,7 @@
 
 .screenshot-dropzone:hover {
     border-color: var(--color-primary);
-    background: rgba(15, 118, 110, 0.04);
+    background: rgba(15, 118, 110, 0.06);
     color: var(--color-primary);
 }
 
@@ -189,7 +204,7 @@
     font-weight: 600;
     color: var(--color-text);
     margin: 0;
-    max-width: 200px;
+    max-width: 220px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -215,10 +230,9 @@
 }
 
 .remove-screenshot-btn:hover {
-    background: rgba(239, 68, 68, 0.1);
+    background: rgba(239, 68, 68, 0.12);
 }
 
-/* Info Column Styling */
 .contact-info-column {
     display: flex;
     flex-direction: column;
@@ -228,11 +242,11 @@
 .contact-info-card {
     padding: 32px;
     background: var(--color-secondary);
-    color: white;
+    color: #fff;
 }
 
 .contact-info-card .info-card-title {
-    color: white;
+    color: #fff;
     margin-bottom: 24px;
     font-size: 1.25rem;
 }
@@ -269,10 +283,9 @@
 
 .info-link {
     font-weight: 600;
-    color: white;
+    color: #fff;
     text-decoration: none;
     font-size: 1rem;
-    transition: color 0.2s;
 }
 
 .info-link:hover {
@@ -288,7 +301,7 @@
 .info-text {
     font-size: 0.95rem;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
     margin: 0;
 }
 
@@ -296,7 +309,6 @@
     font-size: 0.85rem !important;
 }
 
-/* CTA Card */
 .contact-cta-card {
     padding: 32px;
 }
@@ -325,7 +337,6 @@
     justify-content: center;
 }
 
-/* Animations */
 .contact-form-card {
     animation: contactFadeUp 0.6s ease-out forwards;
 }
@@ -340,14 +351,12 @@
         opacity: 0;
         transform: translateY(20px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-/* Responsive */
 @media (max-width: 850px) {
     .contact-scroll-area {
         padding: 16px;

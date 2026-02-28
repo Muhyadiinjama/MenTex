@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu, HelpCircle, MessageSquare, Sun, Moon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import UserNav from './UserNav';
 import { useTheme } from '../contexts/ThemeContext';
 import './Navbar.css';
@@ -13,6 +14,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ pageTitle, isSidebarOpen, onToggleSidebar, lang }) => {
+    const navigate = useNavigate();
     const { theme, toggleTheme } = useTheme();
     const t = translations[lang].navbar;
     const feedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdw3fG7f299Vcq5RUrdhJjyxfwF_ZW1QwiptQwAoO7EQAKSkQ/viewform?usp=publish-editor';
@@ -56,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = ({ pageTitle, isSidebarOpen, onToggleSideb
                         <MessageSquare size={16} />
                         <span>{t.feedback}</span>
                     </a>
-                    <button className="nav-icon-btn" title={t.help}>
+                    <button className="nav-icon-btn" title={t.help} onClick={() => navigate('/help')}>
                         <HelpCircle size={20} />
                     </button>
                 </div>

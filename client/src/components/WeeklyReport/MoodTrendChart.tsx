@@ -16,20 +16,47 @@ interface MoodTrendChartProps {
 const MoodTrendChart: React.FC<MoodTrendChartProps> = ({ data, windowMode }) => {
     if (!data || data.length === 0) return <div>No data available</div>;
 
-    const formattedData = data.map((d) => ({
-        ...d,
-        displayDate: windowMode === 'Weekly'
-            ? format(new Date(d.date), 'EEE')
-            : format(new Date(d.date), 'MMM d')
-    }));
+    const sorted = [...data].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    const first = new Date(sorted[0].date);
+    const last = new Date(sorted[sorted.length - 1].date);
+    const byDate = new Map(sorted.map((d) => [new Date(d.date).toISOString().slice(0, 10), d]));
+    const filledData: Array<{
+        date: string;
+        avgScore: number | null;
+        min: number;
+        max: number;
+        dominantMood?: string;
+        displayDate: string;
+    }> = [];
 
-    const firstX = formattedData[0]?.displayDate;
-    const lastX = formattedData[formattedData.length - 1]?.displayDate;
+    const cursor = new Date(first);
+    while (cursor <= last) {
+        const key = cursor.toISOString().slice(0, 10);
+        const existing = byDate.get(key);
+        filledData.push({
+            date: key,
+            avgScore: existing?.avgScore ?? null,
+            min: existing?.min ?? 1,
+            max: existing?.max ?? 5,
+            dominantMood: existing?.dominantMood,
+            displayDate: format(cursor, 'yyyy-MM-dd')
+        });
+        cursor.setDate(cursor.getDate() + 1);
+    }
+
+    const firstX = filledData[0]?.displayDate;
+    const lastX = filledData[filledData.length - 1]?.displayDate;
+    const tickFormatter = (value: string) => {
+        const date = new Date(value);
+        if (windowMode === 'Weekly') return format(date, 'EEE');
+        const day = format(date, 'EEE');
+        return day === 'Mon' || day === 'Wed' || day === 'Fri' ? format(date, 'MMM d') : '';
+    };
 
     return (
         <div style={{ height: '300px', width: '100%' }}>
             <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={formattedData}>
+                <LineChart data={filledData}>
                     {firstX && lastX && (
                         <>
                             <ReferenceArea x1={firstX} x2={lastX} y1={1} y2={2.4} fill="rgba(248, 113, 113, 0.09)" />
@@ -40,6 +67,7 @@ const MoodTrendChart: React.FC<MoodTrendChartProps> = ({ data, windowMode }) => 
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
                     <XAxis
                         dataKey="displayDate"
+                        tickFormatter={tickFormatter}
                         axisLine={false}
                         tickLine={false}
                         tick={{ fill: 'var(--color-text-sub)', fontSize: 12 }}
@@ -69,7 +97,7 @@ const MoodTrendChart: React.FC<MoodTrendChartProps> = ({ data, windowMode }) => 
                         labelFormatter={(label, payload) => {
                             const entry = payload && payload[0] ? payload[0].payload : null;
                             const mood = entry?.dominantMood ? ` | Mostly: ${entry.dominantMood}` : '';
-                            return `${label}${mood}`;
+                            return `${format(new Date(label), 'MMM d, yyyy')}${mood}`;
                         }}
                     />
                     <Line
@@ -79,6 +107,7 @@ const MoodTrendChart: React.FC<MoodTrendChartProps> = ({ data, windowMode }) => 
                         strokeWidth={4}
                         dot={{ r: 4, fill: 'var(--color-primary)', strokeWidth: 2, stroke: 'var(--color-white)' }}
                         activeDot={{ r: 6, strokeWidth: 0 }}
+                        connectNulls={true}
                     />
                 </LineChart>
             </ResponsiveContainer>
