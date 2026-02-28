@@ -45,6 +45,8 @@ export const sendTherapistReport = async (
     userId: string,
     payload: { therapistName: string; therapistEmail: string; subject: string; body: string }
 ) => {
-    const response = await axios.post(`${API_URL}/send-therapist-report/${userId}`, payload);
+    const response = await axios.post(`${API_URL}/send-therapist-report/${userId}`, payload, {
+        timeout: 20000
+    });
     return response.data as { success: boolean; sentAt: string };
 };
