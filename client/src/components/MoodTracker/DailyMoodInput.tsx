@@ -45,13 +45,13 @@ const DailyMoodInput: React.FC<DailyMoodInputProps> = ({ userId, onMoodLogged, l
     if (success) {
         return (
             <div className="p-6 bg-teal-50 rounded-lg text-center shadow-sm">
-                <h3 className="text-xl font-bold text-teal-700">{lang === 'EN' ? 'Mood Logged! 🎉' : 'Mood Direkod! 🎉'}</h3>
-                <p className="text-teal-600 mt-2">{lang === 'EN' ? 'You can log another mood whenever your feelings change.' : 'Anda boleh merekod mood lain setiap kali perasaan anda berubah.'}</p>
+                <h3 className="text-xl font-bold text-teal-700">{t.successTitle}</h3>
+                <p className="text-teal-600 mt-2">{t.successSubtitle}</p>
                 <button
                     onClick={() => setSuccess(false)}
                     className="mt-4 text-teal-800 underline hover:no-underline"
                 >
-                    {lang === 'EN' ? 'Log Another' : 'Rekod Lagi'}
+                    {t.logAnother}
                 </button>
             </div>
         );
@@ -100,7 +100,7 @@ const DailyMoodInput: React.FC<DailyMoodInputProps> = ({ userId, onMoodLogged, l
                         disabled={loading}
                         className="w-full py-3 px-4 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg transition-colors disabled:opacity-50"
                     >
-                        {loading ? common.loading : lang === 'EN' ? 'Log Mood' : 'Rekod Mood'}
+                        {loading ? common.loading : t.logMoodButton}
                     </button>
                 </form>
             )}

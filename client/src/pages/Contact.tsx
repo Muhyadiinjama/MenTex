@@ -258,18 +258,14 @@ const Contact: React.FC<ContactProps> = ({ lang }) => {
                                     </div>
                                     <div className="info-divider"></div>
                                     <p className="info-text">
-                                        {lang === 'EN'
-                                            ? "Our team typically responds within 24-48 business hours."
-                                            : "Pasukan kami biasanya memberi maklum balas dalam masa 24-48 jam waktu bekerja."}
+                                        {t.responseNotice}
                                     </p>
                                 </div>
 
                                 <div className="contact-cta-card card">
                                     <h3 className="info-card-title">{translations[lang].sidebar.checkin}</h3>
                                     <p className="info-text">
-                                        {lang === 'EN'
-                                            ? "Need immediate support? Try our daily check-in or chat with MenTex AI."
-                                            : "Perlukan sokongan segera? Cuba daftar masuk harian atau berbual dengan MenTex AI."}
+                                        {t.ctaNotice}
                                     </p>
                                     <button onClick={() => navigate('/check-in')} className="btn-secondary contact-mini-cta">
                                         {translations[lang].sidebar.checkin}

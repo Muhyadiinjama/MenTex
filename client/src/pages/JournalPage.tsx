@@ -10,6 +10,8 @@ import Skeleton from '../components/Skeleton';
 import { API_URL } from "../config";
 import "./JournalPage.css";
 
+import { translations } from "../i18n/translations";
+
 interface JournalEntry {
     _id: string;
     title: string;
@@ -27,6 +29,8 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
     const [entries, setEntries] = useState<JournalEntry[]>([]);
     const [loading, setLoading] = useState(true);
 
+    const t = translations[lang].journal;
+
     // Editor State
     const [isEditing, setIsEditing] = useState(false);
     const [currentId, setCurrentId] = useState<string | null>(null);
@@ -35,15 +39,13 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
     const [category, setCategory] = useState("Personal");
     const [isSaving, setIsSaving] = useState(false);
 
-
-
     const categories = [
-        { id: 'Personal', label: lang === 'BM' ? 'Peribadi' : 'Personal', icon: Heart, color: '#0F766E' },
-        { id: 'Work', label: lang === 'BM' ? 'Kerja' : 'Work', icon: Briefcase, color: '#334155' },
-        { id: 'Health', label: lang === 'BM' ? 'Kesihatan' : 'Health', icon: Sun, color: '#d08770' },
-        { id: 'Reflection', label: lang === 'BM' ? 'Refleksi' : 'Reflection', icon: Moon, color: '#b48ead' },
-        { id: 'Family', label: lang === 'BM' ? 'Keluarga' : 'Family', icon: Home, color: '#ffb347' },
-        { id: 'Other', label: lang === 'BM' ? 'Lain-lain' : 'Other', icon: Coffee, color: '#a3be8c' },
+        { id: 'Personal', label: t.categories.personal, icon: Heart, color: '#0F766E' },
+        { id: 'Work', label: t.categories.work, icon: Briefcase, color: '#334155' },
+        { id: 'Health', label: t.categories.health, icon: Sun, color: '#d08770' },
+        { id: 'Reflection', label: t.categories.reflection, icon: Moon, color: '#b48ead' },
+        { id: 'Family', label: t.categories.family, icon: Home, color: '#ffb347' },
+        { id: 'Other', label: t.categories.other, icon: Coffee, color: '#a3be8c' },
     ];
 
     useEffect(() => {
@@ -61,7 +63,7 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
             setEntries(data);
         } catch (err) {
             console.error("Error fetching journals:", err);
-            toast.error(lang === "BM" ? "Gagal memuat jurnal" : "Failed to load journals");
+            toast.error(t.toast.loadFailed);
         } finally {
             setLoading(false);
         }
@@ -69,7 +71,7 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
 
     const handleSave = async (talkToAi = false) => {
         if (!title.trim() || !content.trim()) {
-            toast.error(lang === "BM" ? "Sila isikan tajuk dan kandungan" : "Please enter title and content");
+            toast.error(t.toast.fieldsRequired);
             return;
         }
 
@@ -86,7 +88,7 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
                 const data = await res.json();
 
                 setEntries(entries.map(e => e._id === currentId ? data : e));
-                toast.success(lang === "BM" ? "Jurnal dikemas kini" : "Journal updated");
+                toast.success(t.toast.updated);
             } else {
                 // Create
                 const res = await fetch(`${API_URL}/api/journal`, {
@@ -103,13 +105,13 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
                 const data = await res.json();
 
                 setEntries([data, ...entries]);
-                toast.success(lang === "BM" ? "Jurnal disimpan" : "Journal saved");
+                toast.success(t.toast.saved);
             }
 
             if (talkToAi) {
                 navigate('/chat', {
                     state: {
-                        initialMessage: `I just wrote a journal entry titled "${title}" in the ${category} category. Here's what I wrote: "${content}". Can you provide some therapeutic reflections or advice based on this?`,
+                        initialMessage: t.aiReflectionPrompt(title, category, content),
                         fromJournal: true
                     }
                 });
@@ -118,22 +120,22 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
             }
         } catch (err) {
             console.error("Error saving journal:", err);
-            toast.error(lang === "BM" ? "Gagal menyimpan jurnal" : "Failed to save journal");
+            toast.error(t.toast.saveFailed);
         } finally {
             setIsSaving(false);
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (window.confirm(lang === "BM" ? "Adakah anda pasti mahu memadam jurnal ini?" : "Are you sure you want to delete this journal?")) {
+        if (window.confirm(t.toast.deleteConfirm)) {
             try {
                 const res = await fetch(`${API_URL}/api/journal/${id}`, { method: 'DELETE' });
                 if (!res.ok) throw new Error("Delete failed");
                 setEntries(entries.filter(e => e._id !== id));
-                toast.success(lang === "BM" ? "Jurnal dipadam" : "Journal deleted");
+                toast.success(t.toast.deleted);
             } catch (err) {
                 console.error("Error deleting journal:", err);
-                toast.error(lang === "BM" ? "Gagal memadam jurnal" : "Failed to delete journal");
+                toast.error(t.toast.deleteFailed);
             }
         }
     };
@@ -167,7 +169,7 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
 
             <main className="main-content">
                 <Navbar
-                    pageTitle={lang === "BM" ? "Jurnal Saya" : "My Journal"}
+                    pageTitle={t.title}
                     isSidebarOpen={isSidebarOpen}
                     onToggleSidebar={() => setIsSidebarOpen(true)}
                     lang={lang}
@@ -177,14 +179,14 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
                     <div className="journal-page">
                         <div className="journal-header-section animate-fade-in">
                             <div className="journal-intro">
-                                <h1>{lang === "BM" ? "Jurnal Saya" : "My Journal"} ✍️</h1>
-                                <p>{lang === "BM" ? "Ruang selamat untuk fikiran dan emosi anda." : "A safe space for your thoughts and emotions."}</p>
+                                <h1>{t.title} ✍️</h1>
+                                <p>{t.subtitle}</p>
                             </div>
 
                             {!isEditing && (
                                 <button className="new-journal-btn" onClick={() => setIsEditing(true)}>
                                     <PlusCircle size={20} />
-                                    {lang === "BM" ? "Halaman Baru" : "New Page"}
+                                    {t.newPage}
                                 </button>
                             )}
                         </div>
@@ -193,7 +195,7 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
                             {isEditing ? (
                                 <div className="journal-editor-card animate-fade-in">
                                     <div className="editor-section">
-                                        <label className="editor-label">{lang === "BM" ? "Pilih Kategori" : "Select Category"}</label>
+                                        <label className="editor-label">{t.selectCategory}</label>
                                         <div className="category-selector">
                                             {categories.map((cat) => (
                                                 <button
@@ -213,7 +215,7 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
                                         <input
                                             type="text"
                                             className="journal-title-input-premium"
-                                            placeholder={lang === "BM" ? "Tajuk entri anda..." : "Title of your entry..."}
+                                            placeholder={t.titlePlaceholder}
                                             value={title}
                                             onChange={(e) => setTitle(e.target.value)}
                                             disabled={isSaving}
@@ -223,7 +225,7 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
                                     <div className="editor-section">
                                         <textarea
                                             className="journal-body-input-premium custom-scrollbar"
-                                            placeholder={lang === "BM" ? "Luahkan apa yang tersirat..." : "Express what's on your mind..."}
+                                            placeholder={t.contentPlaceholder}
                                             value={content}
                                             onChange={(e) => setContent(e.target.value)}
                                             disabled={isSaving}
@@ -232,16 +234,16 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
 
                                     <div className="editor-footer">
                                         <button className="btn-secondary" onClick={handleCancel} disabled={isSaving}>
-                                            {lang === "BM" ? "Batal" : "Cancel"}
+                                            {translations[lang].common.cancel}
                                         </button>
                                         <div className="save-actions">
                                             <button className="btn-outline" onClick={() => handleSave(false)} disabled={isSaving}>
                                                 {isSaving ? <Loader2 size={18} className="spin" /> : <Save size={18} />}
-                                                {lang === "BM" ? "Simpan Sahaja" : "Save Only"}
+                                                {t.saveOnly}
                                             </button>
                                             <button className="btn-primary" onClick={() => handleSave(true)} disabled={isSaving}>
                                                 <MessageCircle size={18} />
-                                                {lang === "BM" ? "Simpan & Borak dengan AI" : "Save & Talk to AI"}
+                                                {t.saveTalkAi}
                                             </button>
                                         </div>
                                     </div>
@@ -269,10 +271,10 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
                                     ) : entries.length === 0 ? (
                                         <div className="empty-state-card animate-fade-in">
                                             <div className="empty-illustration">🍃</div>
-                                            <h3>{lang === "BM" ? "Mulakan Perjalanan" : "Begin the Journey"}</h3>
-                                            <p>{lang === "BM" ? "Halaman ini menunggu kata-kata anda. Tulis sesuatu yang kecil hari ini." : "This page is waiting for your words. Write something small today."}</p>
+                                            <h3>{t.emptyTitle}</h3>
+                                            <p>{t.emptyText}</p>
                                             <button className="btn-primary" onClick={() => setIsEditing(true)}>
-                                                {lang === "BM" ? "Tulis Sekarang" : "Write Now"}
+                                                {t.writeNow}
                                             </button>
                                         </div>
                                     ) : (
@@ -284,7 +286,7 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
                                                         <div className="card-top">
                                                             <div className="entry-cat-badge" style={{ backgroundColor: cat.color + '22', color: cat.color }}>
                                                                 <cat.icon size={14} />
-                                                                {cat.id}
+                                                                {cat.label}
                                                             </div>
                                                             <span className="entry-date">{format(new Date(entry.createdAt), "MMM d, yyyy")}</span>
                                                         </div>
@@ -300,17 +302,17 @@ export default function JournalPage({ lang }: { lang: "EN" | "BM" }) {
                                                         )}
 
                                                         <div className="entry-footer">
-                                                            <button onClick={() => editEntry(entry)} className="action-circle-btn" title="Edit">
+                                                            <button onClick={() => editEntry(entry)} className="action-circle-btn" title={translations[lang].common.edit}>
                                                                 <Edit3 size={16} />
                                                             </button>
-                                                            <button onClick={() => handleDelete(entry._id)} className="action-circle-btn danger" title="Delete">
+                                                            <button onClick={() => handleDelete(entry._id)} className="action-circle-btn danger" title={translations[lang].common.delete}>
                                                                 <Trash2 size={16} />
                                                             </button>
                                                             <button
-                                                                onClick={() => navigate('/chat', { state: { initialMessage: `I'm reflecting on my journal entry titled "${entry.title}": "${entry.content}". What advice can you give me based on this?` } })}
+                                                                onClick={() => navigate('/chat', { state: { initialMessage: t.aiReflectionPromptShort(entry.title, entry.content) } })}
                                                                 className="talk-ai-mini-btn"
                                                             >
-                                                                {lang === 'BM' ? 'Nasihat AI' : 'AI Advice'}
+                                                                {t.aiAdvice}
                                                                 <ArrowRight size={14} />
                                                             </button>
                                                         </div>

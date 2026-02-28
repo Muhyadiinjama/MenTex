@@ -64,6 +64,8 @@ export const translations = {
             sending: "Sending...",
             success: "Message sent! We'll get back to you soon.",
             error: "Failed to send message. Please try again.",
+            responseNotice: "Our team typically responds within 24-48 business hours.",
+            ctaNotice: "Need immediate support? Try our daily check-in or chat with MenTex AI.",
             directEmail: "Direct Support",
             formTitle: "Send us a message",
             uploadScreenshot: "Attach Screenshot",
@@ -85,21 +87,6 @@ export const translations = {
             placeholder: "Tell us what you think...",
             success: "Thank you for your Feedback! We will see and improve MenTex based on your thoughts.",
             error: "Failed to send feedback. Please try again."
-        },
-        about: {
-            title: "About MenTex",
-            logoAlt: "MenTex Logo",
-            description: "MenTex is your mindful AI companion, designed to support emotional wellness through daily check-ins, data-driven mood tracking, and empathetic conversations.",
-            version: "Version 1.1.1",
-            subtitle: "Mental Health Support",
-            mission: "Our Mission",
-            missionText: "To provide an accessible, safe, and stigma-free digital space where individuals can understand their emotional patterns and find support whenever they need it.",
-            features: [
-                "AI-Powered Conversations",
-                "Personalized Mood Analytics",
-                "Secure and Private Check-ins",
-                "Mental Health Resources"
-            ]
         },
         landing: {
             heroTitle: "Your Mental Wellness, Supported by AI.",
@@ -151,7 +138,23 @@ export const translations = {
             chatPlaceholder: "Type a message to start chatting...",
             timeline: "Today's Timeline",
             viewReport: "View Full Report",
-            chartEmpty: "Start checking in today to see your daily mood line."
+            chartEmpty: "Start checking in today to see your daily mood line.",
+            noNoteShort: "No note added.",
+            savedReason: "Saved reason",
+            noNote: "No note added for this check-in.",
+            addNotePlaceholder: "Add your note here...",
+            noteUpdated: "Note updated successfully",
+            noteUpdateError: "Failed to update note",
+            entryDeleted: "Entry deleted successfully",
+            entryDeleteError: "Failed to delete entry",
+            deleteConfirm: "Are you sure you want to delete this entry?",
+            moods: {
+                5: "Great",
+                4: "Okay",
+                3: "Tired",
+                2: "Anxious",
+                1: "Sad"
+            }
         },
         profile: {
             title: "Profile",
@@ -177,7 +180,82 @@ export const translations = {
             updateProfile: "Update Profile",
             profileUpdated: "Profile updated successfully",
             profileUpdateError: "Failed to update profile",
-            selectGender: "Select Gender"
+            selectGender: "Select Gender",
+            editName: "Edit Name",
+            placeholderName: "Enter your name"
+        },
+        about: {
+            title: "About MenTex",
+            headline: "Democratizing Mental Wellness for Every Generation",
+            subtitle: "MenTex aligns with UN SDG Goal 3 by making mental wellness support early, private, and accessible.",
+            badges: {
+                sdg: "SDG Goal 3",
+                private: "Private & Encrypted",
+                ai: "AI + Human Backed"
+            },
+            mission: {
+                title: "Our Mission",
+                purpose: {
+                    title: "Clear Purpose",
+                    body: "Help people detect emotional patterns early before they become crises."
+                },
+                access: {
+                    title: "Accessibility for All",
+                    body: "Built for every age group with a simple, compassionate experience."
+                },
+                cost: {
+                    title: "Affordable Care",
+                    body: "Lower the cost barriers that block people from getting regular support."
+                }
+            },
+            flow: {
+                title: "AI-Driven. Human-Backed.",
+                step1: {
+                    title: "Daily Check-ins",
+                    desc: "Log your mood and thoughts in seconds. Our AI listens without judgment, 24 hours a day."
+                },
+                step2: {
+                    title: "Smart Analytics",
+                    desc: "MenTex detects patterns in your emotions over time and generates a clear weekly wellness report automatically."
+                },
+                step3: {
+                    title: "Therapist Ready",
+                    desc: "Share your report directly with your therapist before your session. Turn check-ins into data your doctor can use."
+                }
+            },
+            sdg: {
+                title: "Our Commitment to SDG Goal 3",
+                allAges: { title: "All-Age Design", desc: "Simple UI accessible for students to seniors." },
+                proactive: { title: "Proactive Intervention", desc: "Spot patterns before they become crises." },
+                cost: { title: "Cost Reduction", desc: "Lower the financial barrier to mental support." },
+                therapist: { title: "Therapist Integration", desc: "Make real-world therapy more efficient." },
+                availability: { title: "24/7 Availability", desc: "Support that never sleeps or judges." },
+                privacy: { title: "Private & Encrypted", desc: "Your data belongs only to you." }
+            },
+            features: {
+                title: "What MenTex Delivers",
+                ai: {
+                    title: "AI Conversations",
+                    desc: "Empathetic, real-time dialogue available 24/7. Our AI understands context and responds with care."
+                },
+                analytics: {
+                    title: "Mood Analytics",
+                    desc: "Visualize your emotional journey over days and weeks. Understand the why behind how you feel."
+                },
+                secure: {
+                    title: "Secure Check-ins",
+                    desc: "End-to-end encryption keeps your journal completely private. Nobody sees your data without your permission."
+                },
+                resources: {
+                    title: "Professional Resources",
+                    desc: "Direct access to global helplines, therapist directories, and one-click report sharing with your doctor."
+                }
+            },
+            cta: {
+                title: "Start Your Wellness Journey Today",
+                checkin: "Start Daily Check-in",
+                how: "See How It Works"
+            }
         },
         login: {
             welcome: "Welcome Back",
@@ -268,7 +346,11 @@ export const translations = {
             sleep: "Sleep",
             stress: "Stress",
             other: "Other",
-            saveError: "Failed to save mood. Please try again."
+            saveError: "Failed to save mood. Please try again.",
+            successTitle: "Mood Logged! 🎉",
+            successSubtitle: "You can log another mood whenever your feelings change.",
+            logAnother: "Log Another",
+            logMoodButton: "Log Mood"
         },
         analytics: {
             title: "Analytics",
@@ -321,6 +403,117 @@ export const translations = {
                 mixedReset: "This week was mixed. Slow down and reset.",
                 heavy: "This week felt heavy. Please prioritize support."
             }
+        },
+        journal: {
+            title: "My Journal",
+            subtitle: "A safe space for your thoughts and emotions.",
+            newPage: "New Page",
+            selectCategory: "Select Category",
+            categories: {
+                personal: "Personal",
+                work: "Work",
+                health: "Health",
+                reflection: "Reflection",
+                family: "Family",
+                other: "Other"
+            },
+            titlePlaceholder: "Title of your entry...",
+            contentPlaceholder: "Express what's on your mind...",
+            saveOnly: "Save Only",
+            saveTalkAi: "Save & Talk to AI",
+            emptyTitle: "Begin the Journey",
+            emptyText: "This page is waiting for your words. Write something small today.",
+            writeNow: "Write Now",
+            aiAdvice: "AI Advice",
+            aiReflectionPrompt: (title: string, category: string, content: string) => `I just wrote a journal entry titled "${title}" in the ${category} category. Here's what I wrote: "${content}". Can you provide some therapeutic reflections or advice based on this?`,
+            aiReflectionPromptShort: (title: string, content: string) => `I'm reflecting on my journal entry titled "${title}": "${content}". What advice can you give me based on this?`,
+            toast: {
+                loadFailed: "Failed to load journals",
+                fieldsRequired: "Please enter title and content",
+                updated: "Journal updated",
+                saved: "Journal saved",
+                deleteConfirm: "Are you sure you want to delete this journal?",
+                deleted: "Journal deleted",
+                deleteFailed: "Failed to delete journal",
+                saveFailed: "Failed to save journal"
+            }
+        },
+        therapist: {
+            title: "My Therapist",
+            heading: "Therapist Information",
+            subtitle: "Save your therapist details to unlock weekly report sharing.",
+            emptyState: "You haven't added your therapist yet.",
+            emptyAction: "Add their info to unlock the Send Report feature.",
+            addTherapist: "Add Therapist",
+            labels: {
+                name: "Therapist full name",
+                email: "Therapist email address",
+                phone: "Therapist phone number",
+                clinic: "Clinic / practice name (optional)",
+                schedule: "Session day & time",
+                nextSession: "Next session date",
+                notes: "Private notes about your therapist"
+            },
+            actions: {
+                save: "Save",
+                saving: "Saving...",
+                delete: "Delete",
+                edit: "Edit",
+                cancel: "Cancel"
+            },
+            toast: {
+                required: "Therapist full name and email are required.",
+                saved: "Therapist information saved.",
+                saveFailed: "Failed to save therapist info.",
+                deleted: "Therapist information deleted.",
+                deleteFailed: "Failed to delete therapist info.",
+                deleteConfirm: "Delete therapist information?"
+            },
+            notProvided: "Not provided"
+        },
+        helpPage: {
+            title: "Help & Support",
+            crisis: {
+                title: "Immediate Help (Malaysia)",
+                subtitle: "If you are in danger now, call emergency services immediately.",
+                call: "Call",
+                website: "website"
+            },
+            faqTitle: "Frequently Asked Questions",
+            faqs: [
+                {
+                    q: "How do I add my therapist's information?",
+                    a: "Open My Therapist from the profile menu, tap Edit, fill in details, then Save."
+                },
+                {
+                    q: "How do I send my weekly report to my therapist?",
+                    a: "Go to Analytics, review the brief, tap Send to Therapist, and confirm Send Report."
+                },
+                {
+                    q: "Is my data private and secure?",
+                    a: "Your data is private to your account. Sharing only happens when you explicitly approve it."
+                },
+                {
+                    q: "How does the mood tracker work?",
+                    a: "Daily check-ins build your mood history and weekly analytics insights."
+                },
+                {
+                    q: "What does the risk level mean?",
+                    a: "Risk level reflects emotional strain based on mood trend, volatility, and report signals."
+                },
+                {
+                    q: "How do I delete my account or data?",
+                    a: "Email support@mentex.app from your registered email and request deletion."
+                },
+                {
+                    q: "Can my therapist see my journal entries?",
+                    a: "No. Therapists only see the brief that you preview and approve before sending."
+                },
+                {
+                    q: "What do I do if I feel the AI insight is wrong?",
+                    a: "Use Send Feedback and rely on professional advice where needed."
+                }
+            ]
         }
     },
     BM: {
@@ -377,6 +570,14 @@ export const translations = {
             logout: "Log Keluar",
             helpSoon: "Pusat bantuan akan datang!"
         },
+        feedback: {
+            title: "Maklum Balas",
+            subtitle: "Kami menghargai pendapat anda tentang cara kami boleh menambah baik MenTex.",
+            formTitle: "Kongsi Maklum Balas Anda",
+            placeholder: "Beritahu kami apa yang anda fikirkan...",
+            success: "Terima kasih atas Maklum Balas anda! Kami akan melihat dan menambah baik MenTex berdasarkan pendapat anda.",
+            error: "Gagal menghantar maklum balas. Sila cuba lagi."
+        },
         contact: {
             title: "Hubungi Kami",
             subtitle: "Ada soalan? Kami sedia mendengar daripada anda.",
@@ -386,8 +587,10 @@ export const translations = {
             message: "Mesej Anda",
             send: "Hantar Mesej",
             sending: "Menghantar...",
-            success: "Mesej dihantar! Kami akan hubungi anda segera.",
+            success: "Mesej dihantar! Kami akan menghubungi anda segera.",
             error: "Gagal menghantar mesej. Sila cuba lagi.",
+            responseNotice: "Pasukan kami biasanya memberi maklum balas dalam masa 24-48 jam waktu bekerja.",
+            ctaNotice: "Perlukan sokongan segera? Cuba daftar masuk harian atau berbual dengan MenTex AI.",
             directEmail: "Sokongan Terus",
             formTitle: "Hantarkan mesej kepada kami",
             uploadScreenshot: "Lampirkan Tangkapan Skrin",
@@ -401,29 +604,6 @@ export const translations = {
                 others: "Lain-lain",
                 custom: "Subjek Sendiri"
             }
-        },
-        feedback: {
-            title: "Maklum Balas",
-            subtitle: "Kami menghargai pendapat anda tentang cara kami boleh menambah baik MenTex.",
-            formTitle: "Kongsi Maklum Balas Anda",
-            placeholder: "Beritahu kami apa yang anda fikirkan...",
-            success: "Terima kasih atas Maklum Balas anda! Kami akan melihat dan menambah baik MenTex berdasarkan pendapat anda.",
-            error: "Gagal menghantar maklum balas. Sila cuba lagi."
-        },
-        about: {
-            title: "Mengenai MenTex",
-            logoAlt: "Logo MenTex",
-            description: "MenTex adalah teman AI anda, direka untuk menyokong kesejahteraan emosi melalui daftar masuk harian, penjejakan mood berasaskan data, dan perbualan yang empati.",
-            version: "Versi 1.1.1",
-            subtitle: "Sokongan Kesihatan Mental",
-            mission: "Misi Kami",
-            missionText: "Untuk menyediakan ruang digital yang boleh diakses, selamat, dan bebas stigma di mana individu boleh memahami corak emosi mereka dan mencari sokongan bila-bila masa diperlukan.",
-            features: [
-                "Perbualan Dikuasakan AI",
-                "Analitik Mood Peribadi",
-                "Daftar Masuk Selamat & Peribadi",
-                "Sumber Kesihatan Mental"
-            ]
         },
         landing: {
             heroTitle: "Kesejahteraan Mental Anda, Disokong oleh AI.",
@@ -475,7 +655,23 @@ export const translations = {
             chatPlaceholder: "Taip mesej untuk mula berbual...",
             timeline: "Garis Masa Hari Ini",
             viewReport: "Lihat Laporan Mingguan",
-            chartEmpty: "Mula mendaftar masuk hari ini untuk melihat garis mood harian anda."
+            chartEmpty: "Mula mendaftar masuk hari ini untuk melihat garis mood harian anda.",
+            noNoteShort: "Tiada nota ditambah.",
+            savedReason: "Sebab disimpan",
+            noNote: "Tiada nota ditambah untuk daftar masuk ini.",
+            addNotePlaceholder: "Tambah nota anda di sini...",
+            noteUpdated: "Nota berjaya dikemas kini",
+            noteUpdateError: "Gagal mengemas kini nota",
+            entryDeleted: "Rekod berjaya dipadam",
+            entryDeleteError: "Gagal memadam rekod",
+            deleteConfirm: "Adakah anda pasti mahu memadamkan rekod ini?",
+            moods: {
+                5: "Hebat",
+                4: "Okay",
+                3: "Penat",
+                2: "Gelisah",
+                1: "Sedih"
+            }
         },
         profile: {
             title: "Profil",
@@ -501,7 +697,82 @@ export const translations = {
             updateProfile: "Kemaskini Profil",
             profileUpdated: "Profil berjaya dikemaskini",
             profileUpdateError: "Gagal mengemaskini profil",
-            selectGender: "Pilih Jantina"
+            selectGender: "Pilih Jantina",
+            editName: "Kemaskini Nama",
+            placeholderName: "Masukkan nama anda"
+        },
+        about: {
+            title: "Mengenai MenTex",
+            headline: "Mendemokrasikan Kesejahteraan Mental Untuk Setiap Generasi",
+            subtitle: "MenTex menyokong Matlamat SDG PBB 3 dengan menjadikan sokongan kesejahteraan mental lebih awal, peribadi, dan mudah dicapai.",
+            badges: {
+                sdg: "Matlamat SDG 3",
+                private: "Peribadi & Terenkripsi",
+                ai: "AI + Sokongan Manusia"
+            },
+            mission: {
+                title: "Misi Kami",
+                purpose: {
+                    title: "Tujuan Jelas",
+                    body: "Membantu orang mengesan corak emosi lebih awal sebelum ianya menjadi krisis."
+                },
+                access: {
+                    title: "Kebolehcapaian untuk Semua",
+                    body: "Dibina untuk semua peringkat umur dengan pengalaman yang ringkas dan penuh belas kasihan."
+                },
+                cost: {
+                    title: "Penjagaan Mampu Milik",
+                    body: "Menurunkan halangan kos yang menghalang orang ramai daripada mendapat sokongan tetap."
+                }
+            },
+            flow: {
+                title: "Dipacu AI. Disokong Manusia.",
+                step1: {
+                    title: "Daftar Masuk Harian",
+                    desc: "Rekod mood dan fikiran anda dalam beberapa saat. AI kami mendengar tanpa menghakimi, 24 jam sehari."
+                },
+                step2: {
+                    title: "Analitik Pintar",
+                    desc: "MenTex mengesan corak dalam emosi anda dari semasa ke semasa dan menghasilkan laporan kesejahteraan mingguan yang jelas secara automatik."
+                },
+                step3: {
+                    title: "Sedia untuk Terapi",
+                    desc: "Kongsi laporan anda terus dengan ahli terapi anda sebelum sesi anda. Tukar daftar masuk menjadi data yang boleh digunakan oleh doktor anda."
+                }
+            },
+            sdg: {
+                title: "Komitmen Kami Terhadap Matlamat SDG 3",
+                allAges: { title: "Reka Bentuk Semua Peringkat Umur", desc: "UI ringkas yang boleh diakses untuk pelajar hingga warga emas." },
+                proactive: { title: "Intervensi Proaktif", desc: "Kesan corak sebelum ianya menjadi krisis." },
+                cost: { title: "Pengurangan Kos", desc: "Menurunkan halangan kewangan untuk sokongan mental." },
+                therapist: { title: "Integrasi Ahli Terapi", desc: "Menjajakan terapi dunia sebenar dengan lebih cekap." },
+                availability: { title: "Ketersediaan 24/7", desc: "Sokongan yang tidak pernah tidur atau menghakimi." },
+                privacy: { title: "Peribadi & Terenkripsi", desc: "Data anda adalah milik anda sahaja." }
+            },
+            features: {
+                title: "Apa yang MenTex Tawarkan",
+                ai: {
+                    title: "Perbualan AI",
+                    desc: "Dialog empati masa nyata tersedia 24/7. AI kami memahami konteks dan bertindak balas dengan prihatin."
+                },
+                analytics: {
+                    title: "Analitik Mood",
+                    desc: "Visualisasikan perjalanan emosi anda selama berhari-hari dan berminggu-minggu. Fahami sebab di sebalik perasaan anda."
+                },
+                secure: {
+                    title: "Daftar Masuk Selamat",
+                    desc: "Enkripsi hujung-ke-hujung mengekalkan privasi jurnal anda sepenuhnya. Tiada sesiapa melihat data anda tanpa kebenaran anda."
+                },
+                resources: {
+                    title: "Sumber Profesional",
+                    desc: "Akses terus ke talian bantuan global, direktori ahli terapi, dan perkongsian laporan satu klik dengan doktor anda."
+                }
+            },
+            cta: {
+                title: "Mulakan Perjalanan Wellness Anda Hari Ini",
+                checkin: "Mula Daftar Masuk Harian",
+                how: "Lihat Bagaimana Ia Berfungsi"
+            }
         },
         settings: {
             title: "Tetapan",
@@ -523,13 +794,13 @@ export const translations = {
         },
         checkin: {
             title: "Daftar Masuk",
-            step1Title: "Apa khabar hari ini?",
-            step1Sub: "Pilih mood yang mewakili perasaan anda sekarang.",
+            step1Title: "Apa khabar anda hari ini?",
+            step1Sub: "Pilih emoji yang sesuai dengan mood anda",
             step2Title: "Apa yang mempengaruhi anda?",
             step2Sub: "Pilih semua yang berkaitan (pilihan).",
             step3Title: "Ada perkara lain?",
-            step3Sub: "Tambah nota ringkas untuk merekod pemikiran anda.",
-            placeholderNote: "Saya rasa begini kerana...",
+            step3Sub: "Tambah nota",
+            placeholderNote: "Apa yang anda fikirkan? (Pilihan)",
             complete: "Selesai Daftar Masuk",
             great: "Hebat",
             okay: "Okay",
@@ -544,7 +815,11 @@ export const translations = {
             sleep: "Tidur",
             stress: "Tekanan",
             other: "Lain-lain",
-            saveError: "Gagal menyimpan mood. Sila cuba lagi."
+            saveError: "Gagal menyimpan mood. Sila cuba lagi.",
+            successTitle: "Mood Direkod! 🎉",
+            successSubtitle: "Anda boleh merekod mood lain setiap kali perasaan anda berubah.",
+            logAnother: "Rekod Lagi",
+            logMoodButton: "Rekod Mood"
         },
         analytics: {
             title: "Analitik",
@@ -645,6 +920,117 @@ export const translations = {
             resetFailed: "Gagal hantar pautan. Pastikan emel adalah betul.",
             accountCreated: "Akaun dicipta! Sila sahkan emel.",
             completeProfileNotice: "Selamat datang! Sila lengkapkan persediaan profil anda di bawah."
+        },
+        journal: {
+            title: "Jurnal Saya",
+            subtitle: "Ruang selamat untuk fikiran dan emosi anda.",
+            newPage: "Halaman Baru",
+            selectCategory: "Pilih Kategori",
+            categories: {
+                personal: "Peribadi",
+                work: "Kerja",
+                health: "Kesihatan",
+                reflection: "Refleksi",
+                family: "Keluarga",
+                other: "Lain-lain"
+            },
+            titlePlaceholder: "Tajuk entri anda...",
+            contentPlaceholder: "Luahkan apa yang tersirat...",
+            saveOnly: "Simpan Sahaja",
+            saveTalkAi: "Simpan & Sembang dengan AI",
+            emptyTitle: "Mulakan Perjalanan",
+            emptyText: "Halaman ini menunggu kata-kata anda. Tulis sesuatu yang kecil hari ini.",
+            writeNow: "Tulis Sekarang",
+            aiAdvice: "Bincang dengan AI",
+            aiReflectionPrompt: (title: string, category: string, content: string) => `Saya baru sahaja menulis entri jurnal bertajuk "${title}" dalam kategori ${category}. Inilah yang saya tulis: "${content}". Bolehkah anda berikan beberapa refleksi terapeutik atau nasihat berdasarkan ini?`,
+            aiReflectionPromptShort: (title: string, content: string) => `Saya sedang memikirkan entri jurnal saya yang bertajuk "${title}": "${content}". Apakah nasihat yang boleh anda berikan kepada saya berdasarkan ini?`,
+            toast: {
+                loadFailed: "Gagal memuat jurnal",
+                fieldsRequired: "Sila masukkan tajuk dan kandungan",
+                updated: "Jurnal dikemas kini",
+                saved: "Jurnal disimpan",
+                deleteConfirm: "Adakah anda pasti mahu memadam jurnal ini?",
+                deleted: "Jurnal dipadam",
+                deleteFailed: "Gagal memadam jurnal",
+                saveFailed: "Gagal menyimpan jurnal"
+            }
+        },
+        therapist: {
+            title: "Terapis Saya",
+            heading: "Maklumat Terapis",
+            subtitle: "Simpan maklumat terapis anda untuk membolehkan penghantaran laporan mingguan.",
+            emptyState: "Anda belum menambah terapis lagi.",
+            emptyAction: "Tambah maklumat mereka untuk membuka ciri Hantar Laporan.",
+            addTherapist: "Tambah Terapis",
+            labels: {
+                name: "Nama penuh terapis",
+                email: "Alamat emel terapis",
+                phone: "Nombor telefon terapis",
+                clinic: "Nama klinik / pusat (pilihan)",
+                schedule: "Hari & waktu sesi",
+                nextSession: "Tarikh sesi seterusnya",
+                notes: "Nota peribadi tentang terapis anda"
+            },
+            actions: {
+                save: "Simpan",
+                saving: "Menyimpan...",
+                delete: "Padam",
+                edit: "Kemaskini",
+                cancel: "Batal"
+            },
+            toast: {
+                required: "Nama penuh dan emel terapis diperlukan.",
+                saved: "Maklumat terapis disimpan.",
+                saveFailed: "Gagal menyimpan maklumat terapis.",
+                deleted: "Maklumat terapis dipadam.",
+                deleteFailed: "Gagal memadam maklumat terapis.",
+                deleteConfirm: "Padam maklumat terapis?"
+            },
+            notProvided: "Tidak disediakan"
+        },
+        helpPage: {
+            title: "Bantuan & Sokongan",
+            crisis: {
+                title: "Bantuan Segera (Malaysia)",
+                subtitle: "Jika anda dalam bahaya sekarang, hubungi talian kecemasan segera.",
+                call: "Hubungi",
+                website: "laman web"
+            },
+            faqTitle: "Soalan Lazim",
+            faqs: [
+                {
+                    q: "Bagaimana cara menambah maklumat terapis saya?",
+                    a: "Buka Terapis Saya dari menu profil, tekan Kemaskini, isi butiran, kemudian Simpan."
+                },
+                {
+                    q: "Bagaimana cara menghantar laporan mingguan kepada terapis saya?",
+                    a: "Pergi ke Analitik, semak ringkasan, tekan Hantar ke Terapis, dan sahkan Hantar Laporan."
+                },
+                {
+                    q: "Adakah data saya peribadi dan selamat?",
+                    a: "Data anda adalah peribadi untuk akaun anda. Perkongsian hanya berlaku apabila anda meluluskannya secara eksplisit."
+                },
+                {
+                    q: "Bagaimana penjejak mood berfungsi?",
+                    a: "Daftar masuk harian membina sejarah mood anda dan pandangan analitik mingguan."
+                },
+                {
+                    q: "Apakah maksud tahap risiko?",
+                    a: "Tahap risiko mencerminkan tekanan emosi berdasarkan trend mood, ketidaktentuan, dan isyarat laporan."
+                },
+                {
+                    q: "Bagaimana cara memadam akaun atau data saya?",
+                    a: "Emel support@mentex.app dari emel berdaftar anda dan minta pemadaman."
+                },
+                {
+                    q: "Bolehkah terapis saya melihat entri jurnal saya?",
+                    a: "Tidak. Terapis hanya melihat ringkasan yang anda pratonton dan lulusi sebelum dihantar."
+                },
+                {
+                    q: "Apa yang perlu saya lakukan jika saya rasa pandangan AI salah?",
+                    a: "Gunakan Hantar Maklum Balas dan harapkan nasihat profesional jika perlu."
+                }
+            ]
         }
     }
 };

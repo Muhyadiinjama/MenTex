@@ -54,16 +54,16 @@ const MoodHistory: React.FC<MoodHistoryProps> = ({ userId, lang }) => {
     }, [userId]);
 
     const handleDeleteEntry = async (id: string) => {
-        if (!window.confirm(lang === 'BM' ? 'Adakah anda pasti mahu memadamkan rekod ini?' : 'Are you sure you want to delete this entry?')) return;
+        if (!window.confirm(t.deleteConfirm)) return;
 
         try {
             await deleteMoodEntry(id);
-            toast.success(lang === 'BM' ? 'Rekod berjaya dipadam' : 'Entry deleted successfully');
+            toast.success(t.entryDeleted);
             setSelectedEntry(null);
             fetchHistory();
         } catch (error) {
             console.error("Failed to delete entry", error);
-            toast.error(lang === 'BM' ? 'Gagal memadam rekod' : 'Failed to delete entry');
+            toast.error(t.entryDeleteError);
         }
     };
 
@@ -72,7 +72,7 @@ const MoodHistory: React.FC<MoodHistoryProps> = ({ userId, lang }) => {
 
         try {
             await updateMoodNote(selectedEntry._id, editNoteText);
-            toast.success(lang === 'BM' ? 'Nota berjaya dikemas kini' : 'Note updated successfully');
+            toast.success(t.noteUpdated);
 
             // Update local state without full refetch for better UX
             const updatedHistory = history.map(entry =>
@@ -83,7 +83,7 @@ const MoodHistory: React.FC<MoodHistoryProps> = ({ userId, lang }) => {
             setIsEditingNote(false);
         } catch (error) {
             console.error("Failed to update note", error);
-            toast.error(lang === 'BM' ? 'Gagal mengemas kini nota' : 'Failed to update note');
+            toast.error(t.noteUpdateError);
         }
     };
 
@@ -167,7 +167,7 @@ const MoodHistory: React.FC<MoodHistoryProps> = ({ userId, lang }) => {
                             </div>
                         </div>
                         <p className="mood-history-preview">
-                            {entry.note?.trim() || (lang === 'EN' ? 'No note added.' : 'Tiada nota ditambah.')}
+                            {entry.note?.trim() || t.noNoteShort}
                         </p>
                     </div>
                 ))}
@@ -181,7 +181,7 @@ const MoodHistory: React.FC<MoodHistoryProps> = ({ userId, lang }) => {
                                 <span className="mood-history-modal-emoji">{selectedEntry.emoji}</span>
                                 <div>
                                     <h4 className="mood-history-modal-title">
-                                        {selectedEntry.moodScore === 5 ? 'Great' : selectedEntry.moodScore === 4 ? 'Okay' : selectedEntry.moodScore === 3 ? 'Tired' : selectedEntry.moodScore === 2 ? 'Anxious' : 'Sad'}
+                                        {t.moods[selectedEntry.moodScore as keyof typeof t.moods]}
                                     </h4>
                                     <p className="mood-history-modal-date">
                                         {format(new Date(selectedEntry.timestamp), 'EEEE, MMM d, h:mm a', { locale: lang === 'BM' ? ms : undefined })}
@@ -219,7 +219,7 @@ const MoodHistory: React.FC<MoodHistoryProps> = ({ userId, lang }) => {
                         </div>
                         <div className="mood-history-modal-body px-6 pb-6">
                             <p className="edit-note-label">
-                                {lang === 'EN' ? 'Saved reason' : 'Sebab disimpan'}
+                                {t.savedReason}
                             </p>
 
                             {isEditingNote ? (
@@ -228,7 +228,7 @@ const MoodHistory: React.FC<MoodHistoryProps> = ({ userId, lang }) => {
                                         value={editNoteText}
                                         onChange={(e) => setEditNoteText(e.target.value)}
                                         className="edit-note-textarea"
-                                        placeholder={lang === 'EN' ? 'Add your note here...' : 'Tambah nota anda di sini...'}
+                                        placeholder={t.addNotePlaceholder}
                                         autoFocus
                                     />
                                     <div className="edit-note-actions">
@@ -249,7 +249,7 @@ const MoodHistory: React.FC<MoodHistoryProps> = ({ userId, lang }) => {
                                 </div>
                             ) : (
                                 <p className="mood-history-modal-text mt-2 block w-full border border-transparent">
-                                    {selectedEntry.note?.trim() || (lang === 'EN' ? 'No note added for this check-in.' : 'Tiada nota ditambah untuk daftar masuk ini.')}
+                                    {selectedEntry.note?.trim() || t.noNote}
                                 </p>
                             )}
                         </div>

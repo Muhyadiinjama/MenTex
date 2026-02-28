@@ -151,8 +151,8 @@ const Profile: React.FC<ProfileProps> = ({ lang }) => {
                                                 onChange={(e) => setEditedName(e.target.value)}
                                                 className="name-input"
                                                 autoFocus
-                                                title="Edit Name"
-                                                placeholder="Enter your name"
+                                                title={t.editName}
+                                                placeholder={t.placeholderName}
                                             />
                                             <div className="action-buttons-flex">
                                                 <button onClick={handleSaveName} disabled={loading} className="save-name-btn" title={common.save}>
@@ -169,7 +169,7 @@ const Profile: React.FC<ProfileProps> = ({ lang }) => {
                                             <button
                                                 onClick={() => { setEditedName(profile?.name || currentUser?.displayName || ''); setIsEditingName(true); }}
                                                 className="edit-name-btn"
-                                                title="Edit Name"
+                                                title={t.editName}
                                             >
                                                 <Edit2 size={16} />
                                             </button>

@@ -6,6 +6,7 @@ import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import { useAuth } from '../contexts/AuthContext';
 import { updateUserProfile } from '../services/api';
+import { translations } from '../i18n/translations';
 import './MyTherapist.css';
 
 interface MyTherapistProps {
@@ -40,6 +41,8 @@ const MyTherapist: React.FC<MyTherapistProps> = ({ lang }) => {
     const [saving, setSaving] = useState(false);
     const [form, setForm] = useState<TherapistForm>(emptyForm);
 
+    const t = translations[lang].therapist;
+
     useEffect(() => {
         const therapist = profile?.therapist;
         if (!therapist) {
@@ -65,18 +68,18 @@ const MyTherapist: React.FC<MyTherapistProps> = ({ lang }) => {
 
     const handleSave = async () => {
         if (!form.fullName.trim() || !form.email.trim()) {
-            toast.error('Therapist full name and email are required.');
+            toast.error(t.toast.required);
             return;
         }
         setSaving(true);
         try {
             await updateUserProfile(currentUser.uid, { therapist: form });
             await refreshProfile();
-            toast.success('Therapist information saved.');
+            toast.success(t.toast.saved);
             setIsEditing(false);
         } catch (error) {
             console.error(error);
-            toast.error('Failed to save therapist info.');
+            toast.error(t.toast.saveFailed);
         } finally {
             setSaving(false);
         }
@@ -84,7 +87,7 @@ const MyTherapist: React.FC<MyTherapistProps> = ({ lang }) => {
 
     const handleDelete = async () => {
         if (!currentUser) return;
-        const confirmed = window.confirm('Delete therapist information?');
+        const confirmed = window.confirm(t.toast.deleteConfirm);
         if (!confirmed) return;
         setSaving(true);
         try {
@@ -95,19 +98,21 @@ const MyTherapist: React.FC<MyTherapistProps> = ({ lang }) => {
             setForm(emptyForm);
             setIsEditing(false);
             await refreshProfile();
-            toast.success('Therapist information deleted.');
+            toast.success(t.toast.deleted);
         } catch (error) {
             console.error(error);
-            toast.error('Failed to delete therapist info.');
+            toast.error(t.toast.deleteFailed);
         } finally {
             setSaving(false);
         }
     };
 
-    const renderValue = (label: string, value?: string) => (
-        <div className="therapist-view-row">
+    const renderValue = (label: string, value: string | undefined, fullWidth: boolean = false) => (
+        <div className={`therapist-view-item ${fullWidth ? 'therapist-view-item-full' : ''}`}>
             <p className="therapist-view-label">{label}</p>
-            <p className="therapist-view-value">{value?.trim() ? value : 'Not provided'}</p>
+            <p className={`therapist-view-value ${!value?.trim() ? 'placeholder' : ''}`}>
+                {value?.trim() ? value : t.notProvided}
+            </p>
         </div>
     );
 
@@ -123,7 +128,7 @@ const MyTherapist: React.FC<MyTherapistProps> = ({ lang }) => {
             />
             <main className="main-content">
                 <Navbar
-                    pageTitle={lang === 'BM' ? 'Terapis Saya' : 'My Therapist'}
+                    pageTitle={t.title}
                     isSidebarOpen={isSidebarOpen}
                     onToggleSidebar={() => setIsSidebarOpen(true)}
                     lang={lang}
@@ -131,83 +136,93 @@ const MyTherapist: React.FC<MyTherapistProps> = ({ lang }) => {
 
                 <div className="therapist-scroll-area">
                     <div className="therapist-container">
-                        <section className="card therapist-card">
+                        <section className="therapist-card animate-fade-in">
                             <div className="therapist-header">
                                 <div className="therapist-heading-wrap">
-                                    <span className="therapist-badge-icon"><Stethoscope size={18} /></span>
                                     <div>
-                                        <h2 className="therapist-title">{lang === 'BM' ? 'Maklumat Terapis' : 'Therapist Information'}</h2>
-                                        <p className="therapist-subtitle">
-                                            {lang === 'BM'
-                                                ? 'Simpan maklumat terapis anda untuk membolehkan penghantaran laporan mingguan.'
-                                                : 'Save your therapist details to unlock weekly report sharing.'}
-                                        </p>
+                                        <h2 className="therapist-title">{t.heading}</h2>
+                                        <p className="therapist-subtitle">{t.subtitle}</p>
                                     </div>
                                 </div>
 
                                 {!isEditing && (
-                                    <div className="therapist-head-actions">
+                                    <div id="therapist-header-actions">
                                         {hasTherapist && (
-                                            <button className="btn-secondary therapist-delete-btn" onClick={handleDelete} disabled={saving}>
-                                                <Trash2 size={16} />
-                                                Delete
+                                            <button
+                                                id="therapist-delete-btn"
+                                                onClick={handleDelete}
+                                                title={t.actions.delete}
+                                            >
+                                                <Trash2 size={20} />
                                             </button>
                                         )}
-                                        <button className="btn-secondary therapist-edit-btn" onClick={() => setIsEditing(true)}>
-                                            <PencilLine size={16} />
-                                            Edit
+                                        <button
+                                            id="therapist-edit-btn"
+                                            onClick={() => setIsEditing(true)}
+                                        >
+                                            <PencilLine size={20} />
+                                            <span>{t.actions.edit}</span>
                                         </button>
                                     </div>
                                 )}
                             </div>
 
                             {!hasTherapist && !isEditing ? (
-                                <div className="therapist-empty-state">
-                                    <p>You haven&apos;t added your therapist yet.</p>
-                                    <p>Add their info to unlock the Send Report feature.</p>
-                                    <button className="btn-primary" onClick={() => setIsEditing(true)}>Add Therapist</button>
+                                <div className="therapist-empty-state animate-reveal">
+                                    <p>{t.emptyState}</p>
+                                    <p>{t.emptyAction}</p>
+                                    <button
+                                        className="btn-primary"
+                                        onClick={() => setIsEditing(true)}
+                                    >
+                                        {t.addTherapist}
+                                    </button>
                                 </div>
                             ) : isEditing ? (
                                 <form
-                                    className="therapist-form-grid"
+                                    className="therapist-form-grid animate-reveal"
                                     onSubmit={(e) => {
                                         e.preventDefault();
                                         handleSave();
                                     }}
                                 >
                                     <label className="therapist-field">
-                                        <span><Stethoscope size={16} /> Therapist full name</span>
+                                        <span><Stethoscope size={16} /> {t.labels.name}</span>
                                         <input
                                             value={form.fullName}
                                             onChange={(e) => setForm((prev) => ({ ...prev, fullName: e.target.value }))}
+                                            placeholder="Enter full name"
                                             required
                                         />
                                     </label>
                                     <label className="therapist-field">
-                                        <span><Mail size={16} /> Therapist email address</span>
+                                        <span><Mail size={16} /> {t.labels.email}</span>
                                         <input
                                             type="email"
                                             value={form.email}
                                             onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
+                                            placeholder="doctor@example.com"
                                             required
                                         />
                                     </label>
                                     <label className="therapist-field">
-                                        <span><Phone size={16} /> Therapist phone number</span>
+                                        <span><Phone size={16} /> {t.labels.phone}</span>
                                         <input
                                             value={form.phone}
                                             onChange={(e) => setForm((prev) => ({ ...prev, phone: e.target.value }))}
+                                            placeholder="+60..."
                                         />
                                     </label>
                                     <label className="therapist-field">
-                                        <span><Building2 size={16} /> Clinic / practice name (optional)</span>
+                                        <span><Building2 size={16} /> {t.labels.clinic}</span>
                                         <input
                                             value={form.clinicName}
                                             onChange={(e) => setForm((prev) => ({ ...prev, clinicName: e.target.value }))}
+                                            placeholder="Clinic Name"
                                         />
                                     </label>
                                     <label className="therapist-field">
-                                        <span><Calendar size={16} /> Session day &amp; time</span>
+                                        <span><Calendar size={16} /> {t.labels.schedule}</span>
                                         <input
                                             placeholder="Every Tuesday at 3:00 PM"
                                             value={form.sessionSchedule}
@@ -215,7 +230,7 @@ const MyTherapist: React.FC<MyTherapistProps> = ({ lang }) => {
                                         />
                                     </label>
                                     <label className="therapist-field">
-                                        <span><Calendar size={16} /> Next session date</span>
+                                        <span><Calendar size={16} /> {t.labels.nextSession}</span>
                                         <input
                                             type="date"
                                             value={form.nextSessionDate}
@@ -223,28 +238,23 @@ const MyTherapist: React.FC<MyTherapistProps> = ({ lang }) => {
                                         />
                                     </label>
                                     <label className="therapist-field therapist-field-full">
-                                        <span><NotebookPen size={16} /> Private notes about your therapist</span>
+                                        <span><NotebookPen size={16} /> {t.labels.notes}</span>
                                         <textarea
                                             rows={4}
                                             value={form.privateNotes}
                                             onChange={(e) => setForm((prev) => ({ ...prev, privateNotes: e.target.value }))}
+                                            placeholder="Any special notes..."
                                         />
                                     </label>
 
                                     <div className="therapist-actions">
-                                        <button type="submit" className="btn-primary" disabled={saving}>
-                                            <Save size={16} />
-                                            {saving ? 'Saving...' : 'Save'}
+                                        <button type="submit" className="btn-primary therapist-save-btn" disabled={saving}>
+                                            <Save size={18} />
+                                            {saving ? t.actions.saving : t.actions.save}
                                         </button>
-                                        {hasTherapist && (
-                                            <button type="button" className="btn-secondary therapist-delete-btn" onClick={handleDelete} disabled={saving}>
-                                                <Trash2 size={16} />
-                                                Delete
-                                            </button>
-                                        )}
                                         <button
                                             type="button"
-                                            className="btn-secondary"
+                                            className="therapist-cancel-btn"
                                             onClick={() => {
                                                 setIsEditing(false);
                                                 const therapist = profile?.therapist;
@@ -263,22 +273,22 @@ const MyTherapist: React.FC<MyTherapistProps> = ({ lang }) => {
                                                 });
                                             }}
                                         >
-                                            Cancel
+                                            {t.actions.cancel}
                                         </button>
                                     </div>
                                 </form>
                             ) : (
-                                <div className="therapist-view-grid">
-                                    {renderValue('Therapist full name', form.fullName)}
-                                    {renderValue('Therapist email address', form.email)}
-                                    {renderValue('Therapist phone number', form.phone)}
-                                    {renderValue('Clinic / practice name', form.clinicName)}
-                                    {renderValue('Session day & time', form.sessionSchedule)}
-                                    {renderValue('Next session date', form.nextSessionDate ? new Date(form.nextSessionDate).toLocaleDateString() : '')}
-                                    <div className="therapist-view-row therapist-view-row-full">
-                                        <p className="therapist-view-label">Private notes</p>
-                                        <p className="therapist-view-value">{form.privateNotes?.trim() || 'Not provided'}</p>
-                                    </div>
+                                <div className="therapist-view-grid animate-reveal">
+                                    {renderValue(t.labels.name, form.fullName)}
+                                    {renderValue(t.labels.email, form.email)}
+                                    {renderValue(t.labels.phone, form.phone)}
+                                    {renderValue(t.labels.clinic, form.clinicName)}
+                                    {renderValue(t.labels.schedule, form.sessionSchedule)}
+                                    {renderValue(
+                                        t.labels.nextSession,
+                                        form.nextSessionDate ? new Date(form.nextSessionDate).toLocaleDateString(undefined, { dateStyle: 'long' }) : ''
+                                    )}
+                                    {renderValue(t.labels.notes, form.privateNotes, true)}
                                 </div>
                             )}
                         </section>

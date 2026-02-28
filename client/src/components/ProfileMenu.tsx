@@ -78,7 +78,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ isOpen, onClose, position = '
                     />
                     <MenuItem
                         icon={Stethoscope}
-                        label={lang === 'BM' ? 'Terapis Saya' : 'My Therapist'}
+                        label={translations[lang].therapist.title}
                         onClick={() => { navigate('/my-therapist'); onClose(); }}
                     />
                     <MenuItem

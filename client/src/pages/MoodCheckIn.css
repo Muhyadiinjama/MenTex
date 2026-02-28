@@ -379,12 +379,49 @@
     }
 
     .checkin-card {
-        padding: 28px 16px;
+        padding: 32px 18px;
         border-radius: 22px;
     }
 
     .checkin-h2 {
-        font-size: 1.45rem;
+        font-size: 1.5rem;
+    }
+
+    .mood-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .mood-emoji-span {
+        font-size: 2rem;
+    }
+
+    .mood-btn {
+        padding: 14px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .checkin-card {
+        padding: 24px 14px;
+    }
+
+    .mood-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .checkin-h2 {
+        font-size: 1.35rem;
+    }
+
+    .checkin-p-sub {
+        font-size: 0.9rem;
+        margin-bottom: 24px;
+    }
+
+    .progress-step {
+        width: 30px;
+        height: 4px;
     }
 }
 

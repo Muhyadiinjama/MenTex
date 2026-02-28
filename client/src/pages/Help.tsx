@@ -5,51 +5,19 @@ import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import { useAuth } from '../contexts/AuthContext';
 import './Help.css';
+import { translations } from '../i18n/translations';
 
 interface HelpProps {
     lang: 'EN' | 'BM';
 }
-
-const faqs = [
-    {
-        q: "How do I add my therapist's information?",
-        a: 'Open My Therapist from the profile menu, tap Edit, fill in details, then Save.'
-    },
-    {
-        q: 'How do I send my weekly report to my therapist?',
-        a: 'Go to Analytics, review the brief, tap Send to Therapist, and confirm Send Report.'
-    },
-    {
-        q: 'Is my data private and secure?',
-        a: 'Your data is private to your account. Sharing only happens when you explicitly approve it.'
-    },
-    {
-        q: 'How does the mood tracker work?',
-        a: 'Daily check-ins build your mood history and weekly analytics insights.'
-    },
-    {
-        q: 'What does the risk level mean?',
-        a: 'Risk level reflects emotional strain based on mood trend, volatility, and report signals.'
-    },
-    {
-        q: 'How do I delete my account or data?',
-        a: 'Email support@mentex.app from your registered email and request deletion.'
-    },
-    {
-        q: 'Can my therapist see my journal entries?',
-        a: 'No. Therapists only see the brief that you preview and approve before sending.'
-    },
-    {
-        q: 'What do I do if I feel the AI insight is wrong?',
-        a: 'Use Send Feedback and rely on professional advice where needed.'
-    }
-];
 
 const Help: React.FC<HelpProps> = ({ lang }) => {
     const navigate = useNavigate();
     const { currentUser } = useAuth();
     const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 850);
     const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+    const t = translations[lang].helpPage;
 
     return (
         <div className="dashboard-page-container">
@@ -64,7 +32,7 @@ const Help: React.FC<HelpProps> = ({ lang }) => {
 
             <main className="main-content">
                 <Navbar
-                    pageTitle={lang === 'BM' ? 'Bantuan & Sokongan' : 'Help & Support'}
+                    pageTitle={t.title}
                     isSidebarOpen={isSidebarOpen}
                     onToggleSidebar={() => setIsSidebarOpen(true)}
                     lang={lang}
@@ -75,17 +43,17 @@ const Help: React.FC<HelpProps> = ({ lang }) => {
                         <section className="help-crisis-banner">
                             <div className="crisis-title-wrap">
                                 <ShieldAlert size={20} />
-                                <h2>Immediate Help (Malaysia)</h2>
+                                <h2>{t.crisis.title}</h2>
                             </div>
-                            <p className="crisis-subtitle">If you are in danger now, call emergency services immediately.</p>
+                            <p className="crisis-subtitle">{t.crisis.subtitle}</p>
                             <div className="crisis-links-grid">
                                 <a href="tel:15555" className="crisis-link-card">
                                     <span><Phone size={16} /> Talian HEAL (MOH)</span>
-                                    <span className="crisis-action">Call 15555</span>
+                                    <span className="crisis-action">{t.crisis.call} 15555</span>
                                 </a>
                                 <a href="tel:+60376272929" className="crisis-link-card">
                                     <span><Phone size={16} /> Befrienders Kuala Lumpur</span>
-                                    <span className="crisis-action">Call +60 3-7627 2929</span>
+                                    <span className="crisis-action">{t.crisis.call} +60 3-7627 2929</span>
                                 </a>
                             </div>
                             <div className="support-ref-links">
@@ -95,7 +63,7 @@ const Help: React.FC<HelpProps> = ({ lang }) => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <span>Talian HEAL website</span>
+                                    <span>Talian HEAL {t.crisis.website}</span>
                                     <ExternalLink size={14} />
                                 </a>
                                 <a
@@ -104,19 +72,19 @@ const Help: React.FC<HelpProps> = ({ lang }) => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <span>Befrienders website</span>
+                                    <span>Befrienders {t.crisis.website}</span>
                                     <ExternalLink size={14} />
                                 </a>
                             </div>
                         </section>
 
                         <section className="card help-card">
-                            <h3 className="help-section-title">Frequently Asked Questions</h3>
+                            <h3 className="help-section-title">{t.faqTitle}</h3>
                             <div className="faq-list">
-                                {faqs.map((faq, idx) => {
+                                {t.faqs.map((faq, idx) => {
                                     const isOpen = openFaq === idx;
                                     return (
-                                        <div className="faq-item" key={faq.q}>
+                                        <div className="faq-item" key={idx}>
                                             <button className="faq-question" onClick={() => setOpenFaq(isOpen ? null : idx)}>
                                                 <span>{faq.q}</span>
                                                 {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}

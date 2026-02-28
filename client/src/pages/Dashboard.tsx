@@ -49,16 +49,16 @@ const Dashboard: React.FC<DashboardProps> = ({ lang }) => {
     }, []);
 
     const handleDeleteEntry = async (id: string) => {
-        if (!window.confirm(lang === 'BM' ? 'Adakah anda pasti mahu memadamkan rekod ini?' : 'Are you sure you want to delete this entry?')) return;
+        if (!window.confirm(t.deleteConfirm)) return;
 
         try {
             await deleteMoodEntry(id);
-            toast.success(lang === 'BM' ? 'Rekod berjaya dipadam' : 'Entry deleted successfully');
+            toast.success(t.entryDeleted);
             setSelectedHistoryEntry(null);
             refetchHistory();
         } catch (error) {
             console.error("Failed to delete entry", error);
-            toast.error(lang === 'BM' ? 'Gagal memadam rekod' : 'Failed to delete entry');
+            toast.error(t.entryDeleteError);
         }
     };
 
@@ -67,13 +67,13 @@ const Dashboard: React.FC<DashboardProps> = ({ lang }) => {
 
         try {
             await updateMoodNote(selectedHistoryEntry._id, editNoteText);
-            toast.success(lang === 'BM' ? 'Nota berjaya dikemas kini' : 'Note updated successfully');
+            toast.success(t.noteUpdated);
             setSelectedHistoryEntry({ ...selectedHistoryEntry, note: editNoteText });
             setIsEditingNote(false);
             refetchHistory();
         } catch (error) {
             console.error("Failed to update note", error);
-            toast.error(lang === 'BM' ? 'Gagal mengemas kini nota' : 'Failed to update note');
+            toast.error(t.noteUpdateError);
         }
     };
 
@@ -86,17 +86,12 @@ const Dashboard: React.FC<DashboardProps> = ({ lang }) => {
         const updateGreeting = () => {
             const hour = new Date().getHours();
             let baseGreeting = "";
-            if (lang === 'EN') {
-                if (hour >= 5 && hour < 12) baseGreeting = "Good Morning";
-                else if (hour >= 12 && hour < 17) baseGreeting = "Good Afternoon";
-                else if (hour >= 17 && hour < 21) baseGreeting = "Good Evening";
-                else baseGreeting = "Good Night";
-            } else {
-                if (hour >= 5 && hour < 12) baseGreeting = "Selamat Pagi";
-                else if (hour >= 12 && hour < 14) baseGreeting = "Selamat Tengahari";
-                else if (hour >= 14 && hour < 19) baseGreeting = "Selamat Petang";
-                else baseGreeting = "Selamat Malam";
-            }
+            const landingT = translations[lang].landing;
+            if (hour >= 5 && hour < 12) baseGreeting = landingT.morning;
+            else if (hour >= 12 && hour < 17) baseGreeting = landingT.afternoon;
+            else if (hour >= 17 && hour < 21) baseGreeting = landingT.evening;
+            else baseGreeting = landingT.night;
+
             setGreeting(`${baseGreeting}, ${currentUser?.displayName || common.user}`);
         };
         updateGreeting();
@@ -498,7 +493,7 @@ const Dashboard: React.FC<DashboardProps> = ({ lang }) => {
 
                                 <div className="history-note-body px-6 pb-6">
                                     <p className="edit-note-label">
-                                        {lang === 'EN' ? 'Saved reason' : 'Sebab disimpan'}
+                                        {t.savedReason}
                                     </p>
                                     {isEditingNote ? (
                                         <div className="edit-note-form">
@@ -506,7 +501,7 @@ const Dashboard: React.FC<DashboardProps> = ({ lang }) => {
                                                 value={editNoteText}
                                                 onChange={(e) => setEditNoteText(e.target.value)}
                                                 className="edit-note-textarea"
-                                                placeholder={lang === 'EN' ? 'Add your note here...' : 'Tambah nota anda di sini...'}
+                                                placeholder={t.addNotePlaceholder}
                                                 autoFocus
                                             />
                                             <div className="edit-note-actions">
@@ -527,7 +522,7 @@ const Dashboard: React.FC<DashboardProps> = ({ lang }) => {
                                         </div>
                                     ) : (
                                         <p className="history-note-text mt-2 block w-full border border-transparent">
-                                            {selectedHistoryEntry.note?.trim() || (lang === 'EN' ? 'No note added for this check-in.' : 'Tiada nota ditambah untuk daftar masuk ini.')}
+                                            {selectedHistoryEntry.note?.trim() || t.noNote}
                                         </p>
                                     )}
                                 </div>

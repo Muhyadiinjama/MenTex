@@ -649,7 +649,6 @@
 @media (max-width: 850px) {
     .dashboard-scroll-area {
         padding: 20px 16px 30px;
-        /* More breathing room on mobile */
     }
 
     .welcome-section {
@@ -667,7 +666,7 @@
 
     .stats-grid {
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 20px;
     }
 
     .mood-emoji-large {
@@ -680,6 +679,7 @@
 
     .card {
         padding: 24px 20px;
+        border-radius: 20px;
     }
 
     .history-card,
@@ -689,7 +689,11 @@
     }
 
     .chat-cta-card {
-        padding: 24px 18px;
+        padding: 32px 20px;
+    }
+
+    .chat-cta-inner {
+        max-width: 100%;
     }
 
     .chat-cta-title {
@@ -703,11 +707,17 @@
     .chat-cta-input-group {
         gap: 8px;
         padding: 6px;
+        border-radius: 24px;
     }
 
     .chat-cta-input {
         padding: 10px 14px;
         font-size: 0.95rem;
+    }
+
+    .chat-cta-send-btn {
+        width: 42px;
+        height: 42px;
     }
 
     .history-note-overlay {
@@ -720,6 +730,28 @@
 
     .history-note-body {
         padding: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-scroll-area {
+        padding: 16px 14px 24px;
+    }
+
+    .welcome-h1 {
+        font-size: 1.45rem;
+    }
+
+    .card {
+        padding: 20px 16px;
+    }
+
+    .mood-emoji-large {
+        font-size: 3rem;
+    }
+
+    .chat-cta-title {
+        font-size: 1.15rem;
     }
 }
 

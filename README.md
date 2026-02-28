@@ -12,23 +12,18 @@
 
 ### 🤖 Intelligent AI Therapy
 * **Real-time Support**: Empathetic, context-aware conversations powered by Google Gemini.
-* **Sentiment Analysis**: AI detects emotional states during chat to provide more personalized responses.
+* **Sentiment Analysis**: AI detects emotional states during chat to provide personalized responses.
 * **Safety First**: Integrated safety protocols to handle sensitive mental health queries responsibly.
 
 ### 📊 Advanced Mood tracking & Analytics
 * **Daily Check-ins**: Quick, intuitive interface for logging daily moods and triggers.
 * **Dynamic Dashboards**: Visualize your emotional journey with interactive charts (Chart.js).
-* **Weekly Reports**: Automated, data-driven insights that summarize your emotional trends and suggest wellness improvements.
+* **Weekly Reports**: Automated, data-driven insights that summarize emotional trends.
 
 ### 📓 Smart Journaling System
 * **Reflective Writing**: A premium journaling interface with markdown support.
-* **AI Feedback**: Receive therapeutic insights and summaries based on your journal entries.
+* **AI Feedback**: Receive therapeutic insights based on your journal entries.
 * **Mood Correlation**: Automatically link your journal entries with your mood history.
-
-### 🌍 Global Accessibility
-* **Multi-Language Support**: Fully supporting **English** and **Bahasa Melayu (BM)**.
-* **Premium UI**: Modern, glassmorphic design with seamless **Dark/Light mode** transitions.
-* **Privacy Focused**: Secure authentication and private data storage.
 
 ---
 
@@ -37,32 +32,28 @@
 ### Frontend
 - **React 18** (Vite)
 - **TypeScript**
-- **Tailwind CSS / Vanilla CSS**
+- **Vanilla CSS** (Custom Premium Design System)
 - **Lucide Icons**
 - **Chart.js & Recharts**
-- **React Router Dom 7**
 
 ### Backend
 - **Node.js & Express**
-- **MongoDB** (Mongoose)
+- **MongoDB Atlas**
 - **Google Gemini API** (Generative AI)
-- **OpenAI API** (Safety & Fallback)
-
-### Deployment
-- **Frontend**: Firebase Hosting
-- **Backend**: Render
+- **OpenRouter API** (Safety Monitor Fallback)
+- **Nodemailer** (Email notifications)
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Local Setup Guide
 
-### Prerequisites
-- Node.js (v18 or higher)
-- MongoDB account (Atlas or Local)
-- Google Gemini API Key
+### 1. Prerequisites
+- **Node.js** (v18 or higher)
+- **MongoDB** (Atlas account or local instance)
+- **Firebase Account** (for Authentication & Hosting)
 
-### Backend Setup
-1. Navigate to the server directory:
+### 2. Backend Configuration
+1. Navigate to the `server` directory:
    ```bash
    cd server
    ```
@@ -70,19 +61,29 @@
    ```bash
    npm install
    ```
-3. Create a `.env` file and add:
+3. Create a `.env` file in the `server` folder:
    ```env
+   # API Keys
    GEMINI_API_KEY=your_gemini_key
+   OPENROUTER_API_KEY=your_openrouter_key
+   
+   # Database
+   MONGO_URI=your_mongodb_connection_string
+   
+   # Server Config
    PORT=4000
-   MONGO_URI=your_mongodb_uri
+   
+   # Mail Service (Gmail App Password)
+   EMAIL_USER=your_email@gmail.com
+   EMAIL_PASS=your_app_password
    ```
 4. Start the server:
    ```bash
    npm run dev
    ```
 
-### Frontend Setup
-1. Navigate to the client directory:
+### 3. Frontend Configuration
+1. Navigate to the `client` directory:
    ```bash
    cd client
    ```
@@ -90,7 +91,20 @@
    ```bash
    npm install
    ```
-3. Start the development server:
+3. Create a `.env` file in the `client` folder:
+   ```env
+   # Firebase Config
+   VITE_FIREBASE_API_KEY=your_key
+   VITE_FIREBASE_AUTH_DOMAIN=your_domain
+   VITE_FIREBASE_PROJECT_ID=your_id
+   VITE_FIREBASE_STORAGE_BUCKET=your_bucket
+   VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+   VITE_FIREBASE_APP_ID=your_app_id
+   
+   # Backend Connection
+   VITE_API_URL=http://localhost:4000
+   ```
+4. Start the development server:
    ```bash
    npm run dev
    ```
@@ -105,12 +119,13 @@ MenTex/
 │   ├── src/
 │   │   ├── components/  # Reusable UI elements
 │   │   ├── pages/       # Page components (Dashboard, Chat, etc.)
-│   │   └── contexts/    # State management (Auth, Theme)
+│   │   ├── contexts/    # State management (Auth, Theme)
+│   │   └── i18n/        # Translation files (EN/BM)
 ├── server/           # Node.js + Express API
 │   ├── src/
 │   │   ├── controllers/ # Business logic
 │   │   ├── models/      # Database schemas
-│   │   └── routes/       # API endpoints
+│   │   └── routes/      # API endpoints
 └── firebase.json     # Hosting configurations
 ```
 
@@ -119,6 +134,6 @@ MenTex/
 ## 📄 License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Acknowledgments
-* Special thanks to the Google Gemini team for the AI capabilities.
-* Dedicated to making mental health support accessible to everyone.
+---
+**Powered by Onebit Team**  
+*Built with ❤️ for mental well-being.*
