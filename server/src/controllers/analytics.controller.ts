@@ -4,6 +4,38 @@ import { WeeklyReport } from '../models/WeeklyReport.js';
 import { generateWeeklyReportForUser } from '../services/reportGeneration.service.js';
 import { User } from '../models/User.js';
 
+const createMailer = () => {
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPort = Number(process.env.SMTP_PORT || 587);
+    const smtpSecure = process.env.SMTP_SECURE === 'true';
+
+    if (smtpHost) {
+        return nodemailer.createTransport({
+            host: smtpHost,
+            port: smtpPort,
+            secure: smtpSecure,
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            },
+            connectionTimeout: 10000,
+            greetingTimeout: 10000,
+            socketTimeout: 15000
+        });
+    }
+
+    return nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        },
+        connectionTimeout: 10000,
+        greetingTimeout: 10000,
+        socketTimeout: 15000
+    });
+};
+
 export const generateReport = async (req: Request, res: Response) => {
     try {
         const { userId } = req.params;
@@ -63,21 +95,20 @@ export const sendTherapistReport = async (req: Request, res: Response) => {
             return res.status(500).json({ error: 'Email is not configured on server' });
         }
 
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
-            }
-        });
+        const transporter = createMailer();
 
-        await transporter.sendMail({
-            from: `"MenTex" <${process.env.EMAIL_USER}>`,
-            to: therapistEmail,
-            subject,
-            text: body,
-            replyTo: process.env.EMAIL_USER
-        });
+        await Promise.race([
+            transporter.sendMail({
+                from: `"MenTex" <${process.env.EMAIL_USER}>`,
+                to: therapistEmail,
+                subject,
+                text: body,
+                replyTo: process.env.EMAIL_USER
+            }),
+            new Promise((_, reject) =>
+                setTimeout(() => reject(new Error('Email service timeout')), 18000)
+            )
+        ]);
 
         const sentAt = new Date().toISOString();
         await User.findOneAndUpdate(
@@ -87,8 +118,11 @@ export const sendTherapistReport = async (req: Request, res: Response) => {
         );
 
         return res.json({ success: true, sentAt });
-    } catch (error) {
+    } catch (error: any) {
         console.error('Error sending therapist report:', error);
-        return res.status(500).json({ error: 'Failed to send therapist report' });
+        return res.status(500).json({
+            error: 'Failed to send therapist report',
+            details: error?.message || 'Unknown mail error'
+        });
     }
 };
