@@ -6,11 +6,12 @@
     align-items: center;
     justify-content: space-between;
     background: var(--color-white);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
     position: sticky;
     top: 0;
     z-index: 100;
     padding-top: calc(12px + env(safe-area-inset-top));
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
 .dashboard-header-left {
@@ -129,6 +130,8 @@
     .dashboard-header-bar {
         padding: 10px 14px;
         padding-top: calc(10px + env(safe-area-inset-top));
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
     }
 
     .dashboard-header-left {

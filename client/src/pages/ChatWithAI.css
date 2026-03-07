@@ -1,26 +1,37 @@
-.chat-loading-screen {
-    height: 100vh;
+.chat-content-flex-wrap {
+    flex: 1;
+    min-height: 0;
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.chat-page-wrapper {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    position: relative;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .chat-container {
     max-width: 1000px;
     margin: 0 auto;
     width: 100%;
-    height: 100%;
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    padding: 18px 18px 24px;
+    padding: 10px 18px 20px;
     position: relative;
+    z-index: 1;
+}
+
+/* Force navbar and chat container to behave as separate flex items */
+.main-content {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+}
+
+.dashboard-header-bar {
+    flex-shrink: 0 !important;
+    z-index: 100 !important;
+    background: var(--color-white) !important;
 }
 
 .chat-info-bar {
@@ -323,47 +334,48 @@
 
 @media (max-width: 850px) {
     .chat-container {
-        padding: 12px 12px 10px;
+        padding: 8px 12px 10px;
+    }
+
+    .chat-info-bar {
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        border-radius: 12px;
     }
 
     .chat-body {
         border-radius: 12px;
-        padding: 16px 12px;
-        margin-bottom: 12px;
+        padding: 12px 10px;
+        margin-bottom: 10px;
     }
 
     .message-wrapper {
-        max-width: 90%;
+        max-width: 92%;
     }
 
     .message-bubble {
-        padding: 12px 16px;
-        font-size: 0.95rem;
-    }
-
-    .chat-info-bar {
         padding: 10px 14px;
-        border-radius: 12px;
+        font-size: 0.92rem;
     }
 
     .input-area-container {
-        padding: 0 8px 8px;
-        padding-bottom: calc(8px + env(safe-area-inset-bottom));
+        padding: 0 4px 6px;
+        padding-bottom: calc(6px + env(safe-area-inset-bottom));
     }
 
     .input-wrapper {
-        padding: 6px 6px 6px 18px;
-        min-height: 52px;
-        border-radius: 16px;
+        padding: 5px 5px 5px 15px;
+        min-height: 48px;
+        border-radius: 14px;
     }
 
     .chat-input-field {
-        font-size: 0.95rem;
+        font-size: 0.92rem;
     }
 
     .send-button {
-        width: 40px;
-        height: 40px;
+        width: 38px;
+        height: 38px;
     }
 }
 

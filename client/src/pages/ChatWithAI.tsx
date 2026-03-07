@@ -244,81 +244,83 @@ const ChatWithAI: React.FC<ChatWithAIProps> = ({ lang, setSafetyOpen, safetyOpen
                     lang={lang}
                 />
 
-                <div className="chat-container">
-                    {/* Header Info (Sub-header) */}
-                    <div className="chat-info-bar">
-                        <div className="chat-title-group">
-                            <div className="chat-user-info">
-                                <div className="chat-user-name">
-                                    {currentUser?.displayName || common.user}
+                <div className="chat-content-flex-wrap">
+                    <div className="chat-container">
+                        {/* Header Info (Sub-header) */}
+                        <div className="chat-info-bar">
+                            <div className="chat-title-group">
+                                <div className="chat-user-info">
+                                    <div className="chat-user-name">
+                                        {currentUser?.displayName || common.user}
+                                    </div>
+                                    <span className="online-status">
+                                        <span className="status-dot"></span>
+                                        {isLoading ? common.thinking : common.online}
+                                    </span>
                                 </div>
-                                <span className="online-status">
-                                    <span className="status-dot"></span>
-                                    {isLoading ? common.thinking : common.online}
-                                </span>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Chat Body */}
-                    <div className="chat-body">
-                        {messages.map((m) => (
-                            <div key={m.id} className={`message-wrapper ${m.sender}`}>
-                                <div className={`markdown-content message-bubble ${m.sender}`}>
-                                    <ReactMarkdown
-                                        remarkPlugins={[remarkGfm, remarkBreaks]}
-                                        components={{
-                                            a: ({ node: _node, ...props }) => (
-                                                <a {...props} />
-                                            )
-                                        }}
-                                    >
-                                        {m.text}
-                                    </ReactMarkdown>
+                        {/* Chat Body */}
+                        <div className="chat-body">
+                            {messages.map((m) => (
+                                <div key={m.id} className={`message-wrapper ${m.sender}`}>
+                                    <div className={`markdown-content message-bubble ${m.sender}`}>
+                                        <ReactMarkdown
+                                            remarkPlugins={[remarkGfm, remarkBreaks]}
+                                            components={{
+                                                a: ({ node: _node, ...props }) => (
+                                                    <a {...props} />
+                                                )
+                                            }}
+                                        >
+                                            {m.text}
+                                        </ReactMarkdown>
+                                    </div>
+                                    {m.sender === 'ai' && (
+                                        <span className="ai-label">MenTex</span>
+                                    )}
                                 </div>
-                                {m.sender === 'ai' && (
-                                    <span className="ai-label">MenTex</span>
-                                )}
-                            </div>
-                        ))}
-                        {isLoading && (
-                            <div className="typing-indicator">
-                                <span className="typing-dot"></span>
-                                <span className="typing-dot"></span>
-                                <span className="typing-dot"></span>
-                            </div>
-                        )}
-                        <div ref={messagesEndRef} className="scroll-anchor" />
-                    </div>
-
-                    {/* Input Area */}
-                    <div className="input-area-container">
-                        {/* Removed local storage warning from original since user might be logged in */}
-                        <div className="input-wrapper">
-                            <input
-                                type="text"
-                                value={input}
-                                onChange={(e) => setInput(e.target.value)}
-                                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                                placeholder={t.placeholder}
-                                className="chat-input-field"
-                            />
-                            <button
-                                onClick={() => handleSend()}
-                                disabled={isLoading || !input.trim()}
-                                title={common.sendMessage}
-                                aria-label={common.sendMessage}
-                                className={`send-button ${input.trim() ? 'active' : 'disabled'}`}
-                            >
-                                <Send size={20} />
-                            </button>
+                            ))}
+                            {isLoading && (
+                                <div className="typing-indicator">
+                                    <span className="typing-dot"></span>
+                                    <span className="typing-dot"></span>
+                                    <span className="typing-dot"></span>
+                                </div>
+                            )}
+                            <div ref={messagesEndRef} className="scroll-anchor" />
                         </div>
-                        <div className="storage-info">
-                            {currentUser ? t.savedAccount : t.savedDevice}
-                        </div>
-                    </div>
 
-                    <SafetyPopup isOpen={safetyOpen} onClose={() => setSafetyOpen(false)} />
+                        {/* Input Area */}
+                        <div className="input-area-container">
+                            {/* Removed local storage warning from original since user might be logged in */}
+                            <div className="input-wrapper">
+                                <input
+                                    type="text"
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)}
+                                    onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                                    placeholder={t.placeholder}
+                                    className="chat-input-field"
+                                />
+                                <button
+                                    onClick={() => handleSend()}
+                                    disabled={isLoading || !input.trim()}
+                                    title={common.sendMessage}
+                                    aria-label={common.sendMessage}
+                                    className={`send-button ${input.trim() ? 'active' : 'disabled'}`}
+                                >
+                                    <Send size={20} />
+                                </button>
+                            </div>
+                            <div className="storage-info">
+                                {currentUser ? t.savedAccount : t.savedDevice}
+                            </div>
+                        </div>
+
+                        <SafetyPopup isOpen={safetyOpen} onClose={() => setSafetyOpen(false)} />
+                    </div>
                 </div>
             </main>
         </div>
